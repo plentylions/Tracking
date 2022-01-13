@@ -1,0 +1,101 @@
+{% set gtmId = config("Tracking.gtmId") %}
+{% set useConsentBanner = config("Tracking.useConsentBanner") %}
+
+{% if gtmId is not empty %}
+<!-- Google Tag Manager Head -->
+<script>
+    dataLayer = [];
+</script>
+<script>
+    window.addEventListener("load", function(event) {
+        let cookieObj = gtmGetCookieValue("plenty-shop-cookie");
+        gtmCheckScriptsOnConsent(cookieObj);
+    });
+
+    document.addEventListener("consent-change", function (event) {
+        let cookieObj = event.detail.data;
+        gtmCheckScriptsOnConsent(cookieObj);
+    });
+
+    function gtmGetCookieValue(cookieName) {
+        const b = document.cookie.match('(^|;)\\s*' + cookieName + '\\s*=\\s*([^;]+)');
+        if(b) {
+            return JSON.parse(decodeURIComponent(b.pop()));
+        }
+    }
+
+    function gtmInArray(needle, haystack) {
+        let length = haystack.length;
+        for (let i = 0; i < length; i++) {
+            if (haystack[i] == needle) return true;
+        }
+        return false;
+    }
+
+    function gtmEnableScriptsOnConsent() {
+        let el = document.getElementById('gtm-gtmAll');
+        if (el) {
+            let newScript = document.createElement("script");
+            if (el.src) {
+                newScript.src = el.src;
+            } else {
+                newScript.textContent = el.textContent;
+            }
+            el.parentNode.replaceChild(newScript, el);
+        }
+    }
+
+    function gtmCheckScriptsOnConsent(cookieObj){
+        let gtmConsents = ['gtmGoogleAnalytics', 'gtmProductList', 'gtmGoogleAds', 'gtmFacebook', 'gtmPinterest', 'gtmBilligerDe', 'gtmKelkoo', 'gtmPaypal', 'gtmAwin', 'gtmWebgains'];
+        let gtmCustomConsents = ['gtmCustomCookieOne', 'gtmCustomCookieTwo', 'gtmCustomCookieThree', 'gtmCustomCookieFour', 'gtmCustomCookieFive', 'gtmCustomCookieSix', 'gtmCustomCookieSeven', 'gtmCustomCookieEight', 'gtmCustomCookieNine', 'gtmCustomCookieTen'];
+        let gtmMergedConsents = gtmConsents.concat(gtmCustomConsents);
+        let availableConsents = cookieObj;
+        for (var availableConsentGroups in availableConsents) {
+            if (typeof availableConsents[availableConsentGroups] === 'object') {
+                for (var availableConsentEntries in availableConsents[availableConsentGroups]) {
+                    if (availableConsents[availableConsentGroups][availableConsentEntries] === true) {
+                        if (gtmInArray(availableConsentEntries, gtmMergedConsents)) {
+                            gtmEnableScriptsOnConsent();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+</script>
+{% if useConsentBanner == "true" %}
+    <script type="text/plain" id="gtm-gtmAll">
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', '{{ gtmId }}');
+    </script>
+{% else %}
+    <script type="text/javascript">
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', '{{ gtmId }}');
+    </script>
+{% endif %}
+<!-- End Google Tag Manager Head-->
+{% endif %}

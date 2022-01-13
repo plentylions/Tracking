@@ -1,0 +1,1559 @@
+{
+    "formatVersion": 1,
+    "menu": {
+        "Config.IntegrationTab": {
+            "label": "Config.IntegrationTab",
+            "formFields": {
+                "useConsentBanner": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.useConsentBannerLabel",
+                    "options": {
+                        "defaultValue": "true"
+                    }
+                }
+            }
+        },
+        "Config.CookiesTab": {
+            "label": "Config.CookiesTab",
+            "formFields": {
+                "dividerProductList": {
+                    "type": "verticalContainer",
+                    "label": "Config.productListLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.productListLabel"
+                            }
+                        }
+                    }
+                },
+                "showProductList": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showProductListLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentProductListNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentProductListNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentProductListIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentProductListIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupProductList": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupProductListLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentProductListCookieNames": {
+                    "type": "inputText",
+                    "required": true,
+                    "label": "Config.consentProductListCookieNames",
+                    "options": {
+                        "defaultValue": "sessionItemList"
+                    }
+                },
+                "dividerGoogleAnalytics": {
+                    "type": "verticalContainer",
+                    "label": "Config.googleAnalyticsLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.googleAnalyticsLabel"
+                            }
+                        }
+                    }
+                },
+                "showGoogleAnalytics": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showGoogleAnalyticsLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGoogleAnalyticsNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentGoogleAnalyticsNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGoogleAnalyticsIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentGoogleAnalyticsIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupGoogleAnalytics": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupGoogleAnalyticsLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentGoogleAnalyticsCookieNames": {
+                    "type": "inputText",
+                    "required": true,
+                    "label": "Config.consentGoogleAnalyticsCookieNames",
+                    "options": {
+                        "defaultValue": "_ga, _gid, _gcl_au, _gcl_aw, /^_gat_UA_\\S*/, /^_gat_UA-\\S*/, /^_gac_UA-\\S*/, /^_gac_UA_\\S*/, /^_dc_gtm_\\S*/, /^_gat_\\S*/, /^_gac_\\S*/"
+                    }
+                },
+                "dividerGoogleAds": {
+                    "type": "verticalContainer",
+                    "label": "Config.googleAdsLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.googleAdsLabel"
+                            }
+                        }
+                    }
+                },
+                "showGoogleAds": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showGoogleAdsLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGoogleAdsNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentGoogleAdsNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGoogleAdsIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentGoogleAdsIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupGoogleAds": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupGoogleAdsLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentGoogleAdsCookieNames": {
+                    "type": "inputText",
+                    "required": true,
+                    "label": "Config.consentGoogleAdsCookieNames",
+                    "options": {
+                        "defaultValue": "IDE, 1P_JAR, AID, ANID, NID, CONSENT, DV, DSID, APISID, HSID, SAPISID, S, SID, SIDCC, SSID, SEARCH_SAMESITE, test_cookie, __Secure-3PAPISID, __Secure-3PSID, __Secure-APISID, __Secure-HSID, __Secure-SSID"
+                    }
+                },
+                "dividerFacebook": {
+                    "type": "verticalContainer",
+                    "label": "Config.facebookLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.facebookLabel"
+                            }
+                        }
+                    }
+                },
+                "showFacebook": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showFacebookLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentFacebookNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentFacebookNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentFacebookIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentFacebookIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupFacebook": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupFacebookLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentFacebookCookieNames": {
+                    "type": "inputText",
+                    "required": true,
+                    "label": "Config.consentFacebookCookieNames",
+                    "options": {
+                        "defaultValue": "fr, _fbp"
+                    }
+                },
+                "dividerPinterest": {
+                    "type": "verticalContainer",
+                    "label": "Config.pinterestLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.pinterestLabel"
+                            }
+                        }
+                    }
+                },
+                "showPinterest": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showPinterestLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentPinterestNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentPinterestNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentPinterestIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentPinterestIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupPinterest": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupPinterestLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentPinterestCookieNames": {
+                    "type": "inputText",
+                    "required": true,
+                    "label": "Config.consentPinterestCookieNames",
+                    "options": {
+                        "defaultValue": "_pinterest_sess, _pinterest_cm, _auth, _pin_unauth"
+                    }
+                },
+                "dividerBilligerDe": {
+                    "type": "verticalContainer",
+                    "label": "Config.billigerDeLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.billigerDeLabel"
+                            }
+                        }
+                    }
+                },
+                "showBilligerDe": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showBilligerDeLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentBilligerDeNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentBilligerDeNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentBilligerDeIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentBilligerDeIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupBilligerDe": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupBilligerDeLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentBilligerDeCookieNames": {
+                    "type": "inputText",
+                    "required": true,
+                    "label": "Config.consentBilligerDeCookieNames",
+                    "options": {
+                        "defaultValue": "__cf_bm, __cfduid, billiger_session, billigerderevisit"
+                    }
+                },
+                "dividerKelkoo": {
+                    "type": "verticalContainer",
+                    "label": "Config.kelkooLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.kelkooLabel"
+                            }
+                        }
+                    }
+                },
+                "showKelkoo": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showKelkooLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentKelkooNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentKelkooNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentKelkooIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentKelkooIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupKelkoo": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupKelkooLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentKelkooCookieNames": {
+                    "type": "inputText",
+                    "required": true,
+                    "label": "Config.consentKelkooCookieNames",
+                    "options": {
+                        "defaultValue": "KelkooID, sessionId, affiliation_id, SEMTrackingId, /^claparam\\d/"
+                    }
+                },
+                "dividerPaypal": {
+                    "type": "verticalContainer",
+                    "label": "Config.paypalLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.paypalLabel"
+                            }
+                        }
+                    }
+                },
+                "showPaypal": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showPaypalLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentPaypalNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentPaypalNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentPaypalIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentPaypalIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupPaypal": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupPaypalLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentPaypalCookieNames": {
+                    "type": "inputText",
+                    "required": true,
+                    "label": "Config.consentPaypalCookieNames",
+                    "options": {
+                        "defaultValue": "AKDC, akavpau_ppsd, ts_c, ts"
+                    }
+                },
+                "dividerAwin": {
+                    "type": "verticalContainer",
+                    "label": "Config.awinLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.awinLabel"
+                            }
+                        }
+                    }
+                },
+                "showAwin": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showAwinLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentAwinNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentAwinNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentAwinIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentAwinIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupAwin": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupAwinLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentAwinCookieNames": {
+                    "type": "inputText",
+                    "required": true,
+                    "label": "Config.consentAwinCookieNames",
+                    "options": {
+                        "defaultValue": "bId, /^aw\\d*/, AWSESS, /^awpv\\d*/, /^_aw_m_\\d*/"
+                    }
+                },
+                "dividerWebgains": {
+                    "type": "verticalContainer",
+                    "label": "Config.webgainsLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.webgainsLabel"
+                            }
+                        }
+                    }
+                },
+                "showWebgains": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showWebgainsLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentWebgainsNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentWebgainsNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentWebgainsIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentWebgainsIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupWebgains": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupWebgainsLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentWebgainsCookieNames": {
+                    "type": "inputText",
+                    "required": true,
+                    "label": "Config.consentWebgainsCookieNames",
+                    "options": {
+                        "defaultValue": "wgs, wgdc, wgc, wgi"
+                    }
+                }
+            }
+        },
+        "Config.CustomCookiesTab": {
+            "label": "Config.CustomCookiesTab",
+            "formFields": {
+                "dividerCustomCookieOne": {
+                    "type": "verticalContainer",
+                    "label": "Config.customCookieOneLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.customCookieOneLabel"
+                            }
+                        }
+                    }
+                },
+                "showCustomCookieOne": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showCustomCookieOneLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieOneNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieOneNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieOneIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieOneIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupCustomCookieOne": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupCustomCookieOneLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentCustomCookieOneCookieNames": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.consentCustomCookieOneCookieNames",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "dividerCustomCookieTwo": {
+                    "type": "verticalContainer",
+                    "label": "Config.customCookieTwoLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.customCookieTwoLabel"
+                            }
+                        }
+                    }
+                },
+                "showCustomCookieTwo": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showCustomCookieTwoLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieTwoNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieTwoNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieTwoIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieTwoIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupCustomCookieTwo": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupCustomCookieTwoLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentCustomCookieTwoCookieNames": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.consentCustomCookieTwoCookieNames",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "dividerCustomCookieThree": {
+                    "type": "verticalContainer",
+                    "label": "Config.customCookieThreeLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.customCookieThreeLabel"
+                            }
+                        }
+                    }
+                },
+                "showCustomCookieThree": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showCustomCookieThreeLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieThreeNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieThreeNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieThreeIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieThreeIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupCustomCookieThree": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupCustomCookieThreeLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentCustomCookieThreeCookieNames": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.consentCustomCookieThreeCookieNames",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "dividerCustomCookieFour": {
+                    "type": "verticalContainer",
+                    "label": "Config.customCookieFourLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.customCookieFourLabel"
+                            }
+                        }
+                    }
+                },
+                "showCustomCookieFour": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showCustomCookieFourLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieFourNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieFourNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieFourIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieFourIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupCustomCookieFour": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupCustomCookieFourLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentCustomCookieFourCookieNames": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.consentCustomCookieFourCookieNames",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "dividerCustomCookieFive": {
+                    "type": "verticalContainer",
+                    "label": "Config.customCookieFiveLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.customCookieFiveLabel"
+                            }
+                        }
+                    }
+                },
+                "showCustomCookieFive": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showCustomCookieFiveLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieFiveNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieFiveNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieFiveIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieFiveIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupCustomCookieFive": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupCustomCookieFiveLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentCustomCookieFiveCookieNames": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.consentCustomCookieFiveCookieNames",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "dividerCustomCookieSix": {
+                    "type": "verticalContainer",
+                    "label": "Config.customCookieSixLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.customCookieSixLabel"
+                            }
+                        }
+                    }
+                },
+                "showCustomCookieSix": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showCustomCookieSixLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieSixNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieSixNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieSixIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieSixIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupCustomCookieSix": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupCustomCookieSixLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentCustomCookieSixCookieNames": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.consentCustomCookieSixCookieNames",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "dividerCustomCookieSeven": {
+                    "type": "verticalContainer",
+                    "label": "Config.customCookieSevenLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.customCookieSevenLabel"
+                            }
+                        }
+                    }
+                },
+                "showCustomCookieSeven": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showCustomCookieSevenLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieSevenNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieSevenNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieSevenIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieSevenIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupCustomCookieSeven": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupCustomCookieSevenLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentCustomCookieSevenCookieNames": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.consentCustomCookieSevenCookieNames",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "dividerCustomCookieEight": {
+                    "type": "verticalContainer",
+                    "label": "Config.customCookieEightLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.customCookieEightLabel"
+                            }
+                        }
+                    }
+                },
+                "showCustomCookieEight": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showCustomCookieEightLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieEightNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieEightNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieEightIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieEightIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupCustomCookieEight": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupCustomCookieEightLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentCustomCookieEightCookieNames": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.consentCustomCookieEightCookieNames",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "dividerCustomCookieNine": {
+                    "type": "verticalContainer",
+                    "label": "Config.customCookieNineLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.customCookieNineLabel"
+                            }
+                        }
+                    }
+                },
+                "showCustomCookieNine": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showCustomCookieNineLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieNineNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieNineNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieNineIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieNineIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupCustomCookieNine": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupCustomCookieNineLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentCustomCookieNineCookieNames": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.consentCustomCookieNineCookieNames",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "dividerCustomCookieTen": {
+                    "type": "verticalContainer",
+                    "label": "Config.customCookieTenLabel",
+                    "options": {
+                        "containerEntries": {
+                            "name": {
+                                "label": "Config.customCookieTenLabel"
+                            }
+                        }
+                    }
+                },
+                "showCustomCookieTen": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showCustomCookieTenLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieTenNecessary": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieTenNecessaryLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentCustomCookieTenIsOptOut": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.consentCustomCookieTenIsOptOutLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "consentGroupCustomCookieTen": {
+                    "type": "selectBox",
+                    "required": false,
+                    "label": "Config.consentGroupCustomCookieTenLabel",
+                    "options": {
+                        "defaultValue": "tracking",
+                        "selectBoxValues": [
+                            {
+                                "value": "necessary",
+                                "caption": "Config.consentGroupNecessary"
+                            },
+                            {
+                                "value": "tracking",
+                                "caption": "Config.consentGroupTracking"
+                            },
+                            {
+                                "value": "marketing",
+                                "caption": "Config.consentGroupMarketing"
+                            },
+                            {
+                                "value": "media",
+                                "caption": "Config.consentGroupMedia"
+                            },
+                            {
+                                "value": "other",
+                                "caption": "Config.consentGroupOther"
+                            }
+                        ]
+                    }
+                },
+                "consentCustomCookieTenCookieNames": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.consentCustomCookieTenCookieNames",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                }
+            }
+        },
+        "Config.GoogleTagManagerTab": {
+            "label": "Config.GoogleTagManagerTab",
+            "formFields": {
+                "gtmId": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.gtmIdLabel",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "showNetPrices": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.showNetPricesLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                }
+            }
+        },
+        "Config.GoogleSiteVerificationTab": {
+            "label": "Config.GoogleSiteVerificationTab",
+            "formFields": {
+                "googleSiteVerification1": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.GoogleSiteVerificationLabel",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "googleSiteVerification2": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.GoogleSiteVerificationLabel",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                },
+                "googleSiteVerification3": {
+                    "type": "inputText",
+                    "required": false,
+                    "label": "Config.GoogleSiteVerificationLabel",
+                    "options": {
+                        "defaultValue": ""
+                    }
+                }
+            }
+        },
+        "Config.DebugTab": {
+            "label": "Config.DebugTab",
+            "formFields": {
+                "logToConsole": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.logToConsoleLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                },
+                "enableTrackingFromAdmin": {
+                    "type": "checkBox",
+                    "required": false,
+                    "label": "Config.enableTrackingFromAdminLabel",
+                    "options": {
+                        "defaultValue": "false"
+                    }
+                }
+            }
+        }
+    }
+}

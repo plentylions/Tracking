@@ -1,0 +1,92 @@
+{
+    "name": "Tracking",
+    "marketplaceName": {
+        "de": "Google Tag Manager Tracking ENTERPRISE",
+        "en": "Google Tag Manager Tracking ENTERPRISE"
+    },
+    "namespace": "Tracking",
+    "isClosedSource": false,
+    "version": "5.0.4",
+    "license": "AGPL-3.0",
+    "price": 0,
+    "type": "template",
+    "pluginIcon": "icon_plugin_xs.png",
+    "description": "This plugin provides several tracking codes like Google Analytics, Google Ads - Conversion, Google Ads - Remarketing, Facebook Pixel Tracking, Pinterest Tracking, Billiger.de Sales Tracking, Kelkoo Sales Tracking, PayPal Marketing Solutions, Webgains (Affiliate Tracking) and Awin (Affiliate Tracking). With integration into the Cookie Consent Banner by Ceres.",
+    "shortDescription": {
+        "de": "Integration verschiedener Tracking Codes mit Google Tag Manager: Google Analytics Enhanced Ecommerce, Google Ads, Google Dynamisches Remarketing, Facebook Pixel, Pinterest Tracking, Billiger.de Sales Tracking, Kelkoo Sales Tracking, PayPal Marketing Solutions, Affiliate Tracking via Webgains und Awin. Mit Integration in den Cookie Consent Banner von Ceres.",
+        "en": "Integration of different tracking codes with Google Tag Manager: Google Analytics Enhanced Ecommerce, Google Ads, Google Dynamisches Remarketing, Facebook Pixel, Pinterest Tracking, Billiger.de Sales Tracking, Kelkoo Sales Tracking, PayPal Marketing Solutions, Affiliate Tracking via Webgains and Awin. With integration into the Cookie Consent Banner by Ceres."
+    },
+    "categories": [
+        "3527"
+    ],
+    "webhookUrl": "https://hook.integromat.com/jygdlu3kv4q7v8ypdltbyrvu89g4l125",
+    "author": "ecomsilio GmbH",
+    "authorIcon": "icon_author_xs.png",
+    "email": "info@ecomsilio.de",
+    "phone": "+49 30 57701710",
+    "keywords": [
+        "analytics",
+        "tracking",
+        "gtm",
+        "google",
+        "tag manager",
+        "analytics",
+        "facebook",
+        "pinterest",
+        "pixel",
+        "data layer",
+        "event",
+        "conversion",
+        "remarketing",
+        "enhanced ecommerce",
+        "verification",
+        "site",
+        "meta",
+        "billiger.de",
+        "kelkoo",
+        "sales",
+        "paypal",
+        "marketing",
+        "affiliate",
+        "webgains",
+        "awin",
+        "cookie",
+        "cookies",
+        "consent"
+    ],
+    "require": {
+        "IO": ">=4.6.0",
+        "Ceres": ">=4.6.0"
+    },
+    "serviceProvider": "Tracking\\Providers\\TrackingServiceProvider",
+    "dataProviders": [
+        {
+            "key": "Tracking\\Providers\\GtmProviderHead",
+            "name": "Google Tag Manager Code (Page Head)",
+            "description": "Add Google Tag Manager Code in Page Head",
+            "defaultLayoutContainer": "Ceres::Template.Style"
+        },
+        {
+            "key": "Tracking\\Providers\\GoogleSiteVerification",
+            "name": "Google Site Verification Meta-Tag (Page Head)",
+            "description": "Add the meta-tag for Google Site Verification in Page Head",
+            "defaultLayoutContainer": "Ceres::Template.Style"
+        },
+        {
+            "key": "Tracking\\Providers\\TrackingCodeProvider",
+            "name": "Tracking code",
+            "description": "Include tracking code",
+            "defaultLayoutContainer": "Ceres::Script.AfterScriptsLoaded"
+        },
+        {
+            "key": "Tracking\\Providers\\GtmProviderBody",
+            "name": "Google Tag Manager Code (Page Body)",
+            "description": "Add Google Tag Manager Code in Page Body",
+            "defaultLayoutContainer": "Ceres::PageDesign.AfterOpeningBodyTag"
+        }
+    ],
+    "containers": [],
+    "javaScriptFiles": [],
+    "dependencies": [],
+    "runOnBuild": []
+}

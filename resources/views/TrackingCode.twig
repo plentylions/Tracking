@@ -1,0 +1,2183 @@
+{% set debugTracking = config("Tracking.logToConsole") %}
+{% set alwaysEnableTracking = config("Tracking.enableTrackingFromAdmin") %}
+{% if debugTracking == 'false' %}
+	{% set debugTracking ='' %}
+{% endif %}
+{% if alwaysEnableTracking == 'false' %}
+	{% set alwaysEnableTracking ='' %}
+{% endif %}
+{% if debugTracking %}
+	<script>
+		function gtmLog(message, description = false) {
+			if (description) {
+				console.log('GTM: ' + description);
+				console.log(message);
+			} else {
+				console.log('GTM: ' + message);
+			}
+		}
+	</script>
+{% endif %}
+
+{# debug - all context variables #}
+{% if debugTracking %} <script>gtmLog({{ _context|json_encode|raw }}, 'complete context object');</script> {% endif %}
+{# debug - all context variables #}
+
+{% set gtmId = config("Tracking.gtmId") %}
+{% if gtmId is not empty %}
+
+	{#######################################################################################################
+	#######################################################################################################
+	EVERY PAGE 	EVERY PAGE  EVERY PAGE  EVERY PAGE  EVERY PAGE  EVERY PAGE  EVERY PAGE  EVERY PAGE
+	#######################################################################################################
+	#######################################################################################################}
+
+	{% set customerData = services.customer.getContact() %}
+	{% set customerEmail = customerData.email %}
+	{% set customerId = customerData.id %}
+
+	{% if ceresConfig.item.displayName == "itemName" %}
+		{% set displayName = "itemName" %}
+	{% elseif ceresConfig.item.displayName == "variationName" %}
+		{% set displayName = "variationName" %}
+	{% elseif ceresConfig.item.displayName == "itemNameVariationName" %}
+		{% set displayName = "itemNameVariationName" %}
+	{% endif %}
+
+	{% if ceresConfig.item.itemName == 0 %}
+		{% set itemName = "name1" %}
+	{% elseif ceresConfig.item.itemName == 1 %}
+		{% set itemName = "name2" %}
+	{% elseif ceresConfig.item.itemName == 2 %}
+		{% set itemName = "name3" %}
+	{% endif %}
+
+	{# set pageType = templateForTracking #}
+
+{#
+ToDo: match these routes
+const CATEGORY                  = "category";
+const TAGS                      = "tags";
+const PLACE_ORDER               = "place-order";
+const ORDER_PROPERTY_FILE       = "order-property-file";
+const ORDER_DOCUMENT            = "order-document";
+const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
+#}
+
+	{% if services.template.isCurrentTemplate("tpl.home") == "true" or services.template.isCurrentTemplate("tpl.home.category") %}
+{#const HOME                      = "home";#}
+		{% set pageType = "home" %}
+	{% elseif services.template.isCurrentTemplate("tpl.category.content") == "true" %}
+		{% set pageType = "categoryContent" %}
+	{% elseif services.template.isCurrentTemplate("tpl.category.item") == "true" %}
+		{% set pageType = "categoryItem" %}
+	{% elseif services.template.isCurrentTemplate("tpl.category.blog") == "true" %}
+		{% set pageType = "categoryBlog" %}
+	{% elseif services.template.isCurrentTemplate("tpl.category.container") == "true" %}
+		{% set pageType = "categoryContainer" %}
+	{% elseif services.template.isCurrentTemplate("tpl.item") == "true" %}
+{#const ITEM                      = "item";#}
+		{% set pageType = "item" %}
+	{% elseif services.template.isCurrentTemplate("tpl.basket") == "true" %}
+{#const BASKET                    = "basket";#}
+		{% set pageType = "basket" %}
+	{% elseif services.template.isCurrentTemplate("tpl.checkout") == "true" %}
+{#const CHECKOUT                  = "checkout";#}
+		{% set pageType = "checkout" %}
+	{% elseif services.template.isCurrentTemplate("tpl.checkout.category") == "true" %}
+		{% set pageType = "checkoutCategory" %}
+	{% elseif services.template.isCurrentTemplate("tpl.my-account") == "true" %}
+{#const MY_ACCOUNT                = "my-account";#}
+		{% set pageType = "myAccount" %}
+	{% elseif services.template.isCurrentTemplate("tpl.my-account.category") == "true" %}
+		{% set pageType = "myAccountCategory" %}
+	{% elseif services.template.isCurrentTemplate("tpl.confirmation") == "true" %}
+{#const CONFIRMATION              = "confirmation";#}
+		{% set pageType = "confirmation" %}
+	{% elseif services.template.isCurrentTemplate("tpl.login") == "true" %}
+{#const LOGIN                     = "login";#}
+		{% set pageType = "login" %}
+	{% elseif services.template.isCurrentTemplate("tpl.register") == "true" %}
+{#const REGISTER                  = "register";#}
+		{% set pageType = "register" %}
+	{% elseif services.template.isCurrentTemplate("tpl.guest") == "true" %}
+		{% set pageType = "guest" %}
+	{% elseif services.template.isCurrentTemplate("tpl.password-reset") == "true" %}
+{#const PASSWORD_RESET            = "password-reset";#}
+		{% set pageType = "passwordReset" %}
+	{% elseif services.template.isCurrentTemplate("tpl.change-mail") == "true" %}
+{#const CHANGE_MAIL               = "change-mail";#}
+		{% set pageType = "changeMail" %}
+	{% elseif services.template.isCurrentTemplate("tpl.contact") == "true" %}
+{#const CONTACT                   = "contact";#}
+		{% set pageType = "contact" %}
+	{% elseif services.template.isCurrentTemplate("tpl.search") == "true" %}
+{#const SEARCH                    = "search";#}
+		{% set pageType = "search" %}
+	{% elseif services.template.isCurrentTemplate("tpl.wish-list") == "true" %}
+{#const WISH_LIST                 = "wish-list";#}
+		{% set pageType = "wishList" %}
+	{% elseif services.template.isCurrentTemplate("tpl.order.return") == "true" %}
+{#const ORDER_RETURN              = "order-return";#}
+		{% set pageType = "orderReturn" %}
+	{% elseif services.template.isCurrentTemplate("tpl.order.return.conformation") == "true" %}
+{#const ORDER_RETURN_CONFIRMATION = "order-return-confirmation";#}
+		{% set pageType = "orderReturnConfirmation" %}
+	{% elseif services.template.isCurrentTemplate("tpl.cancellation-rights") == "true" %}
+{#const CANCELLATION_RIGHTS       = "cancellation-rights";#}
+		{% set pageType = "cancellationRights" %}
+	{% elseif services.template.isCurrentTemplate("tpl.cancellation-form") == "true" %}
+{#const CANCELLATION_FORM         = "cancellation-form";#}
+		{% set pageType = "cancellationForm" %}
+	{% elseif services.template.isCurrentTemplate("tpl.legal-disclosure") == "true" %}
+{#const LEGAL_DISCLOSURE          = "legal-disclosure";#}
+		{% set pageType = "legalDisclosure" %}
+	{% elseif services.template.isCurrentTemplate("tpl.privacy-policy") == "true" %}
+{#const PRIVACY_POLICY            = "privacy-policy";#}
+		{% set pageType = "privacyPolicy" %}
+	{% elseif services.template.isCurrentTemplate("tpl.terms-conditions") == "true" %}
+{#const TERMS_CONDITIONS          = "gtc";#}
+		{% set pageType = "termsConditions" %}
+	{% elseif services.template.isCurrentTemplate("tpl.item-not-found") == "true" %}
+{#const PAGE_NOT_FOUND            = "page-not-found";#}
+		{% set pageType = "itemNotFound" %}
+	{% elseif services.template.isCurrentTemplate("tpl.newsletter.opt-out") == "true" %}
+{#const NEWSLETTER_OPT_OUT        = "newsletter-opt-out";#}
+		{% set pageType = "newsletterOptOut" %}
+	{% endif %}
+
+	{% if basket is not defined %}
+			{% set basket = services.basket.getBasketForTemplate() %}
+	{% endif %}
+	{% if basketItems is not defined %}
+			{% set basketItems = services.basket.getBasketItemsForTemplate() %}
+	{% endif %}
+
+	{% set basketTotalNet = basket.basketAmountNet %}
+	{% set basketShippingNet = basket.shippingAmountNet %}
+	{% set basketItemSum = basket.itemSum %}
+	{% set basketItemSumNet = basket.itemSumNet %}
+	{% set basketRebate = basket.basketRebate %}
+	{% set couponDiscount = basket.couponDiscount %}
+	{% set vatValue = basket.totalVats[0].vatValue %}
+	{% set vatRate = basket.totalVats[0].vatAmount %}
+
+	{% if config("Tracking.showNetPrices") == "false" %}
+		{% if basket.totalVats[0].vatValue == 0 %}
+			{% set basketTotal = basket.basketAmountNet %}
+			{% set basketShipping = basket.shippingAmountNet %}
+			{% set basketItemSum = basket.itemSumNet %}
+		{% else %}
+			{% set basketTotal = basket.basketAmount %}
+			{% set basketShipping = basket.shippingAmount %}
+			{% set basketItemSum = basket.itemSum %}
+		{% endif %}
+	{% else %}
+		{% set basketTotal = basket.basketAmountNet %}
+		{% set basketShipping = basket.shippingAmountNet %}
+		{% set basketItemSum = basket.itemSumNet %}
+	{% endif %}
+
+	{% set currentTemplate = services.template.getCurrentTemplate %}
+	{#  set currentTemplateNewVersionRouteBased = templateForTracking #}
+	<script>
+		{% if debugTracking %}
+			let currentTemplate = '{{ currentTemplate }}';
+			let currentTemplateNewVersionRouteBased = '{{ currentTemplateNewVersionRouteBased }}';
+			gtmLog('########## Google Tag Manager Plugin debug mode active ##########');
+			gtmLog('Current template: ' + currentTemplate);
+			gtmLog('currentTemplateNewVersionRouteBased: ' + currentTemplateNewVersionRouteBased);
+		{% endif %}
+
+		document.addEventListener("afterBasketChanged", function(event){
+			{% if debugTracking %}
+				gtmLog(event, 'Next line: afterBasketChanged event contents');
+				gtmLog(ceresStore.state.basket, 'Next line: ceresStore.state.basket');
+			{% endif %}
+
+            setTimeout(function()
+            {
+				var stateInitial = false;
+				basketItemsReloaded = getCurrentBasketItems(stateInitial);
+
+				dataLayer.push({
+					"event":"afterBasketChanged",
+					"basketItemsReloaded": basketItemsReloaded
+				});
+            }, 100);
+
+		});
+
+		function setCookie(name,value,days) {
+		    var expires = "";
+		    if (days) {
+		        var date = new Date();
+		        date.setTime(date.getTime() + (days*24*60*60*1000));
+		        expires = "; expires=" + date.toUTCString();
+		    }
+		    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+		}
+
+		function getCookie(name) {
+	    var nameEQ = name + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0;i < ca.length;i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+	        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	    }
+	    return null;
+		}
+
+		function saveItemList(currentItem) {
+
+			if ( getCookie("sessionItemList") != null ) {
+				var sessionItemList =  JSON.parse(getCookie("sessionItemList"));
+			}
+			else {
+				var sessionItemList = [];
+			}
+
+			var item = currentItem;
+			var sessionItemIdAlreadyExists = false;
+			var sessionItemListHasChanged = false;
+
+			$.each(sessionItemList, function( index, sessionItem ) {
+				if(sessionItem.itemId == item[0].id && sessionItem.itemList == item[0].list) {
+					sessionItemIdAlreadyExists = true;
+				}
+				else if (sessionItem.itemId == item[0].id && sessionItem.itemList != item[0].list) {
+
+					for (var i = 0; i < sessionItemList.length; i++) {
+						if (item[0].id == sessionItemList[i].itemId) {
+							sessionItemList[i].itemList = item[0].list;
+							sessionItemListHasChanged = true;
+						}
+					}
+				}
+			});
+
+			if (sessionItemIdAlreadyExists === false && sessionItemListHasChanged === false) {
+				sessionItemList.push({
+					"itemId": item[0].id.toString(),
+					"itemList": item[0].list
+				});
+			}
+
+			if(decodeURIComponent(getCookie("plenty-shop-cookie")).indexOf('"gtmProductList":true')>-1) {
+				setCookie('sessionItemList',JSON.stringify(sessionItemList),0);
+			}
+
+		};
+
+		function sessionList(stateInitial) {
+
+			var stateInitial = stateInitial;
+			var list = [];
+
+			if ( ( getCookie("sessionItemList") != null ) && ( getCookie("sessionItemList") != undefined ) ) {
+
+				{% if services.template.isCurrentTemplate("tpl.confirmation") == false %}
+
+					var sessionItemList = JSON.parse(getCookie("sessionItemList"));
+
+					if (stateInitial === true) {
+
+						{#
+							//console.log(sessionItemList);
+						#}
+
+						list = [];
+
+						{% for item in basketItems %}
+
+							var basketItemId = {{ item.variationId|trim|raw }};
+							var basketItemIdString = basketItemId.toString();
+
+							for (var i = 0; i < sessionItemList.length; i++) {
+
+					        if (sessionItemList[i]['itemId'] == basketItemId) {
+
+											{#
+												//console.log({{ loop.index-1 }} + " yes " + basketItemId);
+											#}
+
+											list[{{ loop.index-1 }}] = sessionItemList[i]['itemList'];
+											break;
+					        }
+									else {
+
+										{#
+											//console.log({{ loop.index-1 }} + " no " + basketItemId);
+										#}
+
+										list[{{ loop.index-1 }}] = "";
+									}
+					    }
+
+						{% endfor %}
+
+					}
+					else {
+
+						list = [];
+
+						$.each(ceresStore.state.basket.items, function( index, item ) {
+							for (var i = 0; i < sessionItemList.length; i++) {
+									if (sessionItemList[i]['itemId'] == ceresStore.state.basket.items[index].variationId.toString()) {
+
+										{#
+											//console.log(index + " yes " + ceresStore.state.basket.items[index].variationId.toString());
+										#}
+
+										list[index] = sessionItemList[i]['itemList'];
+										break;
+									}
+									else {
+
+										{#
+											//console.log(index + " no " + ceresStore.state.basket.items[index].variationId.toString());
+										#}
+
+										list[index] = "";
+									}
+							}
+						});
+
+					}
+
+				{% else %}
+
+					list = [];
+
+					var sessionItemList = JSON.parse(getCookie("sessionItemList"));
+
+					{% for item in data.order.orderItems %}
+						{% if item.itemVariationId > 0 and not ("[-]" in item.orderItemName) %}
+
+							var orderItemId = {{ item.itemVariationId|trim|raw }};
+							var OrderItemIdString = orderItemId.toString();
+
+							for (var i = 0; i < sessionItemList.length; i++) {
+					        if (sessionItemList[i]['itemId'] == OrderItemIdString) {
+											list[{{ loop.index-1 }}] = sessionItemList[i]['itemList'];
+											break;
+					        }
+									else {
+										list[{{ loop.index-1 }}] = "";
+									}
+					    }
+
+						{% endif %}
+					{% endfor %}
+
+				{% endif %}
+			}
+			else {
+					{% if services.template.isCurrentTemplate("tpl.confirmation") == false %}
+						if (stateInitial === true) {
+							list = [];
+							{% for item in basketItems %}
+								list[{{ loop.index-1 }}] = "";
+							{% endfor %}
+						}
+						else {
+							list = [];
+							$.each(ceresStore.state.basket.items, function( index, item ) {
+								list[index] = "";
+							});
+						}
+					{% else %}
+						list = [];
+						{% for item in data.order.orderItems %}
+							list[{{ loop.index-1 }}] = "";
+						{% endfor %}
+					{% endif %}
+			}
+
+			{#
+				//console.log(list);
+			#}
+
+			return list;
+
+		};
+
+		function getCurrentBasketItems(stateInitial) {
+
+			var stateInitial = stateInitial;
+			var list = sessionList(stateInitial);
+
+			{#
+				// BasketItems nach Änderung Warenkorb, also Hinzufügen / Entfernen Artikel
+			#}
+			currentBasketItems = [];
+			var i = 0;
+
+			$.each(ceresStore.state.basket.items, function( index, item ) {
+
+				{#
+					// console.log(item);
+				#}
+
+				{% if displayName == "itemName" %}
+					{% if itemName == "name1" %}
+						var itemName = ceresStore.state.basket.items[i].variation.data.texts.name1;
+					{% elseif itemName == "name2" %}
+						var itemName = ceresStore.state.basket.items[i].variation.data.texts.name2;
+					{% elseif itemName == "name3" %}
+						var itemName = ceresStore.state.basket.items[i].variation.data.texts.name3;
+					{% endif %}
+				{% elseif displayName == "variationName" %}
+					if(ceresStore.state.basket.items[i].variation.data.variation.name != '') {
+						var itemName = ceresStore.state.basket.items[i].variation.data.variation.name;
+					}
+					else {
+						{% if itemName == "name1" %}
+							var itemName = ceresStore.state.basket.items[i].variation.data.texts.name1;
+						{% elseif itemName == "name2" %}
+							var itemName = ceresStore.state.basket.items[i].variation.data.texts.name2;
+						{% elseif itemName == "name3" %}
+							var itemName = ceresStore.state.basket.items[i].variation.data.texts.name3;
+						{% endif %}
+					}
+				{% elseif displayName == "itemNameVariationName" %}
+					{% if itemName == "name1" %}
+						var itemName = ceresStore.state.basket.items[i].variation.data.texts.name1 + " " + ceresStore.state.basket.items[i].variation.data.variation.name;
+					{% elseif itemName == "name2" %}
+						var itemName = ceresStore.state.basket.items[i].variation.data.texts.name2+ " " + ceresStore.state.basket.items[i].variation.data.variation.name;
+					{% elseif itemName == "name3" %}
+						var itemName = ceresStore.state.basket.items[i].variation.data.texts.name3+ " " + ceresStore.state.basket.items[i].variation.data.variation.name;
+					{% endif %}
+				{% endif %}
+
+				var itemPriceNet = ceresStore.state.basket.items[i].variation.data.prices.default.data.priceNet;
+				let itemPriceGross = false;
+
+				if (ceresStore.state.basket.items[i].variation.data.prices.graduatedPrices.length > 1) {
+					{% if debugTracking %} gtmLog('more than one graduated price present, need to check for current pricing'); {% endif %}
+					let graduatedPrices = ceresStore.state.basket.items[i].variation.data.prices.graduatedPrices;
+					let returnPrice;
+					if (graduatedPrices && graduatedPrices[0]) {
+						const prices = graduatedPrices.filter(price => {
+							return parseFloat(ceresStore.state.basket.items[i].quantity) >= price.minimumOrderQuantity;
+						});
+
+						if (prices[0]) {
+							returnPrice = prices.reduce((prev, current) => (prev.minimumOrderQuantity > current.minimumOrderQuantity) ? prev : current);
+							itemPriceNet = returnPrice.data.priceNet;
+							itemPriceGross = returnPrice.data.price;
+						}
+					}
+					{% if debugTracking %}
+						gtmLog('New net price: ' + returnPrice);
+					{% endif %}
+				}
+				{% if debugTracking %}
+					else {
+						 gtmLog('no graduated prices present --> skip');
+					}
+				{% endif %}
+
+				{% if debugTracking %}
+				    gtmLog('gross / net tracking set to {{ config("Tracking.showNetPrices") }}');
+				{% endif %}
+
+				var amount = "";
+				var amountNet = itemPriceNet * ceresStore.state.basket.items[i].quantity;
+				{% if config("Tracking.showNetPrices") == "false" %}
+					var itemPrice = ceresStore.state.basket.items[i].variation.data.prices.default.data.price;
+				    if (itemPriceGross) {
+						itemPrice = itemPriceGross;
+					}
+					var amount = ceresStore.state.basket.items[i].variation.data.prices.default.data.price * ceresStore.state.basket.items[i].quantity;
+				{% else %}
+					var itemPrice = itemPriceNet;
+					var amount = itemPriceNet * ceresStore.state.basket.items[i].quantity;
+				{% endif %}
+				if (ceresStore.state.basket.items[i].variation.data.prices.rrp != null) {
+					var rrp = ceresStore.state.basket.items[i].variation.data.prices.rrp.data.price;
+					var rrpNet = ceresStore.state.basket.items[i].variation.data.prices.rrp.data.priceNet;
+				}
+				else {
+					var rrp = 0;
+					var rrpNet = 0;
+				}
+
+				var attributes = '';
+				var j = 0;
+				$.each(ceresStore.state.basket.items[i].variation.data.attributes, function( index, item ) {
+					attributes += ceresStore.state.basket.items[i].variation.data.attributes[j].attribute.names.name + ': ' + ceresStore.state.basket.items[i].variation.data.attributes[j].value.names.name;
+					if (index < (ceresStore.state.basket.items[i].variation.data.attributes.length-1)) {
+						attributes += ", ";
+					}
+					j = j+1;
+				});
+
+				var brand = '';
+				if(ceresStore.state.basket.items[i].variation.data.item.manufacturer.externalName != "" && ceresStore.state.basket.items[i].variation.data.item.manufacturer.externalName != undefined){
+					brand = ceresStore.state.basket.items[i].variation.data.item.manufacturer.externalName;
+				}
+
+				{% if debugTracking %}
+				    gtmLog('currentBasketItems price: ' + itemPrice);
+				    gtmLog('currentBasketItems price parseFloat(itemPrice.toFixed(2)): ' + parseFloat(itemPrice.toFixed(2)));
+				{% endif %}
+
+				currentBasketItems[index] = {
+					"id": ceresStore.state.basket.items[i].variationId.toString(),
+					"number": ceresStore.state.basket.items[i].variation.data.variation.number,
+					"name": itemName,
+					"brand": brand, {# /*noch nicht in Result Fields*/ #}
+					"variant": attributes,
+					"category": "", {# /*noch nicht in Result Fields*/ #}
+					"price": parseFloat(itemPrice.toFixed(2)),
+					"priceNet": parseFloat(itemPriceNet.toFixed(2)),
+					"amount": parseFloat(amount.toFixed(2)),
+					"amountNet": parseFloat(amountNet.toFixed(2)),
+					"rrp": parseFloat(rrp.toFixed(2)),
+					"rrpNet": parseFloat(rrpNet.toFixed(2)),
+					"quantity": parseFloat(ceresStore.state.basket.items[i].quantity),
+					"list": list[index]
+				};
+				i = i+1;
+
+			});
+
+			return currentBasketItems;
+		};
+
+		function addToCartItemList(variationData) {
+
+			var listElement = "";
+			var parentList = "";
+			var index = 0;
+			var listCaption = "";
+			var bundleType = "";
+			var listName = "";
+			var attributes = "";
+			var productLink = "";
+			variationDataState = variationData;
+
+			if($("article .add-to-basket-lg-container").length > 0 || $("article .category-list-view-port button").length > 0) {
+				$('article .add-to-basket-lg-container, article .category-list-view-port button').on('click', function(event){
+					if ($(event.target).parents("article").eq(0).parent().length > 0) {
+						listElement = $(event.target).parents("article").eq(0).parent();
+						{#
+							//console.log(listElement);
+						#}
+					}
+
+					if (listElement.parents('.widget-item-list').length > 0) {
+						parentList = listElement.parents('.widget-item-list');
+						{#
+							//console.log(parentList);
+						#}
+					}
+					else if (listElement.parents('.list-item-carousel').parent('.col-12').parent('.row').parent('.col-12').parent('.row').length > 0) {
+						parentList = listElement.parents('.list-item-carousel').parent('.col-12').parent('.row').parent('.col-12').parent('.row');
+						{#
+							//console.log(parentList);
+						#}
+					}
+					else if (listElement.parent('.row').parent('.col-12').parent('.row').length > 0) {
+						parentList = listElement.parent('.row').parent('.col-12').parent('.row');
+						{#
+							//console.log(parentList);
+						#}
+					}
+
+					if (parentList.length > 0 && parentList.find('article').parent().index(listElement) != undefined && parentList.find('article').parent().index(listElement) != "") {
+						index = parentList.find('article').parent().index(listElement);
+						{#
+							//console.log(parentList);
+						#}
+					}
+
+					{% if services.template.isCurrentTemplate("tpl.item") == true %}
+						if (parentList.length > 0 && parentList.find('.col-12').first().find(".h3").text() != undefined && parentList.find('.col-12').first().find(".h3").text() != "") {
+							listCaption = $.trim(parentList.find('.col-12').first().find(".h3").text())+" - Varianten-ID "+"{{ item.documents[0].data.variation.id|trim }}";
+							{#
+								//console.log(listCaption);
+							#}
+						}
+						else {
+							listCaption = "{% if itemListSingleItemListLabelWithoutCaption != "" %}{{ trans("Tracking::Template.itemListSingleItemListLabelWithoutCaption") }} - {% endif %}Varianten-ID "+"{{ item.documents[0].data.variation.id|trim }}";
+							{#
+								//console.log(listCaption);
+							#}
+						}
+					{% else %}
+						if (parentList.length > 0 && parentList.find(".widget-caption *:not(:has('*'))").not("a").text() != undefined && parentList.find(".widget-caption *:not(:has('*'))").not("a").text() != "") {
+							listCaption = "{% if trans("Tracking::Template.itemListStartpageListLabelWithCaption") != "" %}{{ trans("Tracking::Template.itemListStartpageListLabelWithCaption") }} {% endif %}" + parentList.find(".widget-caption *:not(:has('*'))").not("a").text();
+							{#
+								//console.log(listCaption);
+							#}
+						}
+						else {
+							listCaption = "{{ trans("Tracking::Template.itemListStartpageListLabelWithoutCaption") }}";
+							{#
+								//console.log(listCaption);
+							#}
+						}
+					{% endif %}
+
+
+					if (parentList.length > 0 && parentList.find('a').length > 0) {
+						productLink = "{{ webstoreConfig.domainSsl }}"+parentList.find('article').find('a').attr('href');
+						{#
+							//console.log(productLink);
+						#}
+					}
+
+					latestEntryLogged = false;
+				});
+			}
+
+			document.addEventListener("onSetLatestBasketEntry", function(event){
+
+				if (latestEntryLogged === false) {
+
+					if (variationChanged === false) {
+
+						var event = $(event);
+						var payloadItem = ceresStore.state.basket.latestEntry;
+						var variationId = $.trim(variationDataState.variationId);
+						var variationIdFloat = parseFloat(variationId);
+
+						if( (payloadItem.item.variation.id.toString() != "{{ item.documents[0].data.variation.id }}") && (payloadItem.item.variation.id != variationIdFloat) ) {
+							if (payloadItem.item.variation.bundleType != null) {
+								bundleType = payloadItem.item.variation.bundleType;
+							}
+
+							{% if displayName == "itemName" %}
+								{% if itemName == "name1" %}
+									var itemName = payloadItem.item.texts.name1;
+								{% elseif itemName == "name2" %}
+									var itemName = payloadItem.item.texts.name2;
+								{% elseif itemName == "name3" %}
+									var itemName = payloadItem.item.texts.name3;
+								{% endif %}
+							{% elseif displayName == "variationName" %}
+								if(payloadItem.item.variation.name != '') {
+									var itemName = payloadItem.item.variation.name;
+								}
+								else {
+									{% if itemName == "name1" %}
+										var itemName = payloadItem.item.texts.name1;
+									{% elseif itemName == "name2" %}
+										var itemName = payloadItem.item.texts.name2;
+									{% elseif itemName == "name3" %}
+										var itemName = payloadItem.item.texts.name3;
+									{% endif %}
+								}
+							{% elseif displayName == "itemNameVariationName" %}
+								{% if itemName == "name1" %}
+									var itemName = payloadItem.item.texts.name1 + " " + payloadItem.item.variation.name;
+								{% elseif itemName == "name2" %}
+									var itemName = payloadItem.item.texts.name2+ " " + payloadItem.item.variation.name;
+								{% elseif itemName == "name3" %}
+									var itemName = payloadItem.item.texts.name3+ " " + payloadItem.item.variation.name;
+								{% endif %}
+							{% endif %}
+
+							var i = 0;
+							$.each(payloadItem.item.attributes, function( index, item ) {
+								attributes += payloadItem.item.attributes[i].attribute.names.name + ': ' + payloadItem.item.attributes[i].value.names.name;
+								if (index < (payloadItem.item.attributes.length-1)) {
+									attributes += ", ";
+								}
+								i = i+1;
+							});
+
+							if (payloadItem.item.prices.rrp != null) {
+								var rrp = payloadItem.item.prices.rrp.data.price;
+								var rrpNet = payloadItem.item.prices.rrp.data.priceNet;
+							}
+							else {
+								var rrp = 0;
+								var rrpNet = 0;
+							}
+
+							addToCartItem = [
+								{
+									"id": payloadItem.item.variation.id.toString(),
+									"name": itemName,
+									"price": parseFloat(payloadItem.item.prices.default.data.price.toFixed(2)),
+									"priceNet": parseFloat(payloadItem.item.prices.default.data.priceNet.toFixed(2)),
+									"amount": parseFloat(payloadItem.item.prices.default.data.price.toFixed(2)),
+									"amountNet": parseFloat(payloadItem.item.prices.default.data.priceNet.toFixed(2)),
+									"rrp": parseFloat(rrp.toFixed(2)),
+									"rrpNet": parseFloat(rrpNet.toFixed(2)),
+									"brand": "", {# /*nicht in Result Fields*/ #}
+									"category": "", {# /*nicht in Result Fields*/ #}
+									"variant": attributes,
+									"quantity": 1,
+									"position": index+1,
+									"list": listCaption,
+									"type": bundleType,
+									"productLink": productLink
+								}
+							];
+
+							var currentItem = addToCartItem;
+							saveItemList(currentItem);
+
+							dataLayer.push({
+								"event":"addToCartItemList",
+								"addToCartItem": addToCartItem
+							});
+
+							var stateInitial = false;
+							basketItemsReloaded = getCurrentBasketItems(stateInitial);
+
+							dataLayer.push({
+								"event":"basketItemsReloaded",
+								"basketItemsReloaded": basketItemsReloaded
+							});
+						}
+
+						return variationChanged;
+					}
+				}
+				variationChanged = false;
+				latestEntryLogged = true;
+			});
+
+		};
+
+		function removeFromCart(item) {
+
+			{#
+				//console.log(item);
+			#}
+
+				let removedItem = [
+					{
+						"id": item.id,
+						"number": item.variation.data.variation.number,
+						"name": item.variation.data.variation.name,
+						"itemName": item.variation.data.texts.name1,
+						"brand": item.brand,
+						"variant": item.variant,
+						"category": item.category,
+						"price": parseFloat(item.price.toFixed(2)),
+						// "priceNet": parseFloat(item.priceNet.toFixed(2)),
+						// "amount": parseFloat(item.amount.toFixed(2)),
+						// "amountNet": parseFloat(item.amountNet.toFixed(2)),
+						"quantity": item.quantity,
+						"list": item.list
+					}
+				];
+
+				{#
+					//console.log(removedItem);
+				#}
+
+				dataLayer.push({
+					"event":"removeFromCart",
+					"removedItem": removedItem
+				});
+				currentBasketItems = [];
+
+
+		};
+
+		function openBasketPreview() {
+
+			var itemName = '';
+			var itemIndex = "";
+			var removedItem = "";
+			var currentBasketItemsOriginal = [];
+			var currentBasketItemsOriginalLength = "";
+			var eventLogged = false;
+			var itemRemovedFromWrapper = false;
+
+			var stateInitial = true;
+			currentBasketItemsOriginal = getCurrentBasketItems(stateInitial);
+			currentBasketItemsOriginalLength = currentBasketItems.length;
+
+			{% if services.template.isCurrentTemplate("tpl.basket") == true %}
+				$(document).on('onSetIsBasketLoading', function() {
+					currentBasketItems = getCurrentBasketItems(stateInitial);
+					currentBasketItemsLoaded = currentBasketItems;
+				});
+
+				if($('.wrapper-main').length > 0) {
+					$('.wrapper-main').click(function(event){
+						if($(event.target).parent().is('.item-remove-button') > 0){
+							var listElement = $(event.target).parents('.basket-item-container');
+							if (listElement.length > 0) {
+								var itemIndex = ($(".basket-item-container").index(listElement));
+								$('.cmp-basket-preview-list').attr('item-index', itemIndex);
+
+								itemRemovedFromWrapper = true;
+								currentBasketItemsOriginal = currentBasketItemsLoaded;
+							}
+						}
+					});
+				}
+			{% endif %}
+
+			if($('.toggle-basket-preview').length > 0) {
+				$('.toggle-basket-preview').on("click", function (event) {
+
+					var stateInitial = false;
+					var openPreview = '';
+
+					var openPreview = $(event.target).parents("#vue-app.open-right");
+
+					if (openPreview.length > 0 && openPreview != undefined) {
+						if(openPreview.find('.item-remove-button').length > 0) {
+							openPreview.find('.item-remove-button').on("click", function (event) {
+
+								currentBasketItems = getCurrentBasketItems(stateInitial);
+
+								currentBasketItemsOriginal = currentBasketItems;
+								currentBasketItemsOriginalLength = currentBasketItems.length;
+
+								eventLogged = false;
+
+								var that = $(this);
+								var listElement = that.parents(".basket-item-container");
+
+								if(listElement.length > 0 && listElement != undefined) {
+									var item = currentBasketItemsOriginal[$(".cmp-basket-preview-list > div > div > div > *").index(listElement)];
+									itemIndex = ($(".cmp-basket-preview-list > div > div > div > *").index(listElement));
+									$('.cmp-basket-preview-list').attr('item-index', itemIndex);
+								}
+								else {
+									var item = '';
+								}
+
+							});
+						}
+					}
+
+				});
+			}
+
+			document.addEventListener("afterBasketItemRemoved", function(event){
+
+				console.log(event);
+
+				// if (eventLogged === false || itemRemovedFromWrapper === true) {
+				// 	if (ceresStore.state.basket.items.length < currentBasketItemsOriginalLength || itemRemovedFromWrapper === true) {
+
+						// var itemIndex = parseFloat($('.cmp-basket-preview-list').attr('item-index'));
+						// var item = currentBasketItemsOriginal[itemIndex];
+
+						removeFromCart(event.detail);
+
+						var stateInitial = false;
+						basketItemsReloaded = getCurrentBasketItems(stateInitial);
+
+						dataLayer.push({
+							"event":"basketItemsReloaded",
+							"basketItemsReloaded": basketItemsReloaded
+						});
+
+				// 	}
+				// }
+
+				eventLogged = true;
+			});
+
+		};
+
+		function getBasket(list) {
+
+			var list = list;
+
+			{#
+				// initialer basketTotal
+			#}
+			var basket = [];
+
+			{#
+				//var basketRaw = {{ basket|json_encode|raw }};
+				//console.log(basketRaw);
+			#}
+
+			{% set basketItemsQuantity = 0 %}
+			{% for item in basketItems %}
+					{% set basketItemsQuantity = basketItemsQuantity + item.quantity %}
+			{% endfor %}
+
+			{% set basketCouponCode = basket.couponCode|trim|raw %}
+
+			basket.push(
+				{
+					"amount": {{ basketTotal|number_format(2, ".", "")|default(0) }},
+					"amountNet": {{ basketTotalNet|number_format(2, ".", "")|default(0) }},
+					"itemSum": {{ basketItemSum|number_format(2, ".", "")|default(0) }},
+					"itemSumNet": {{ basketItemSumNet|number_format(2, ".", "")|default(0) }},
+					"shippingAmount": {{ basketShipping|number_format(2, ".", "")|default(0) }},
+					"shippingAmountNet": {{ basketShippingNet|number_format(2, ".", "")|default(0) }},
+					"rebate": {{ basketRebate }},
+					"rebateType": "{{ basket.basketRebateType }}",
+					{% if '"' in basketCouponCode == true and "'" in basketCouponCode == false %}
+					"couponCode": '{{ basket.couponCode|trim|raw }}',
+					{% elseif '"' in basketCouponCode == false and "'" in basketCouponCode == true %}
+					"couponCode": "{{ basket.couponCode|trim|raw }}",
+					{% elseif '"' in basketCouponCode == true and "'" in basketCouponCode == true %}
+					"couponCode": "{{ basket.couponCode|trim }}",
+					{% else %}
+					"couponCode": "{{ basket.couponCode|trim|raw }}",
+					{% endif %}
+					"couponCode": "{{ basket.couponCode }}",
+					"couponDiscount": {{ couponDiscount|number_format(2, ".", "")|default(0) }},
+					"itemsQuantity": {{ basketItemsQuantity|default(0) }},
+					"vatValue": {{ vatValue|number_format(2, ".", "")|default(0) }},
+					"vatRate": {{ vatRate|number_format(2, ".", "")|default(0) }}
+				}
+			);
+
+			{#
+				//initiale BasketItems
+			#}
+			var basketItems = [];
+
+			{#
+				//var basketItemsRaw = {{ basketItems|json_encode|raw }};
+				//console.log(basketItemsRaw);
+			#}
+
+			{% set categoriesArray = categoryBreadcrumbs %}
+			{% if categoriesArray is not empty %}
+				{% for category in categoriesArray[:categoriesArray|length - 1] %}
+						{% set categories = categories ~ category.details[0].name %}
+						{% if not loop.last %}
+							{% set categories = categories ~ " > " %}
+						{% endif %}
+				{% endfor %}
+			{% endif %}
+			{% set categoriesTree = categories %}
+
+			{% for item in basketItems %}
+				{% set singleBasketItem = services.item.getVariation(item.variationId) %}
+					{#
+						//var singleBasketItem = {{ singleBasketItem|json_encode|raw }};
+						//console.log(singleBasketItem);
+					#}
+			{% endfor %}
+
+			basketItems.push(
+				{% set position = 1 %}
+				{% for item in basketItems %}
+
+					{% set singleBasketItem = services.item.getVariation(item.variationId) %}
+
+					{% set categories = "" %}
+					{% set defaultCategory1name = "" %}
+					{% set parentCategory1name = "" %}
+					{% set parentCategory2name = "" %}
+					{% set parentCategory3name = "" %}
+					{% set parentCategory4name = "" %}
+					{% set parentCategory5name = "" %}
+					{% set parentCategory6name = "" %}
+
+					{% set categoryLevels = singleBasketItem.documents[0].data.defaultCategories[0].level %}
+
+					{% set defaultCategoryId = singleBasketItem.documents[0].data.defaultCategories[0].id %}
+					{% set defaultCategoryDefaultObj = services.category.get(defaultCategoryId) %}
+					{% set defaultCategory1name = defaultCategoryDefaultObj.details[0].name %}
+					{% set parentCategory1Id = singleBasketItem.documents[0].data.defaultCategories[0].parentCategoryId %}
+
+					{% if parentCategory1Id != '' %}
+						{% set parentCategory1Obj = services.category.get(parentCategory1Id) %}
+						{% set parentCategory1name = parentCategory1Obj.details[0].name %}
+						{% set parentCategory2Id = parentCategory1Obj.parentCategoryId %}
+
+						{% if parentCategory2Id != '' %}
+							{% set parentCategory2Obj = services.category.get(parentCategory2Id) %}
+							{% set parentCategory2name = parentCategory2Obj.details[0].name %}
+							{% set parentCategory3Id = parentCategory2Obj.parentCategoryId %}
+
+							{% if parentCategory3Id != '' %}
+								{% set parentCategory3Obj = services.category.get(parentCategory3Id) %}
+								{% set parentCategory3name = parentCategory3Obj.details[0].name %}
+								{% set parentCategory4Id = parentCategory3Obj.parentCategoryId %}
+
+								{% if parentCategory4Id != '' %}
+									{% set parentCategory4Obj = services.category.get(parentCategory4Id) %}
+									{% set parentCategory4name = parentCategory4Obj.details[0].name %}
+									{% set parentCategory5Id = parentCategory4Obj.parentCategoryId %}
+
+									{% if parentCategory5Id != '' %}
+										{% set parentCategory5Obj = services.category.get(parentCategory5Id) %}
+										{% set parentCategory5name = parentCategory5Obj.details[0].name %}
+										{% set parentCategory6Id = parentCategory5Obj.parentCategoryId %}
+
+										{% if parentCategory6Id != '' %}
+											{% set parentCategory6Obj = services.category.get(parentCategory6Id) %}
+											{% set parentCategory6name = parentCategory6Obj.details[0].name %}
+										{% endif %}
+									{% endif %}
+								{% endif %}
+							{% endif %}
+						{% endif %}
+					{% endif %}
+
+					{% if parentCategory6name is not empty %}
+						{% set categories = parentCategory6name ~ " > " %}
+					{% endif %}
+					{% if parentCategory5name is not empty %}
+						{% set categories = parentCategory5name ~ " > " %}
+					{% endif %}
+					{% if parentCategory4name is not empty %}
+						{% set categories = parentCategory4name ~ " > " %}
+					{% endif %}
+					{% if parentCategory3name is not empty %}
+						{% set categories = categories ~ parentCategory3name ~ " > " %}
+					{% endif %}
+					{% if parentCategory2name is not empty %}
+						{% set categories = categories ~ parentCategory2name ~ " > " %}
+					{% endif %}
+					{% if parentCategory1name is not empty %}
+						{% set categories = categories ~ parentCategory1name ~ " > " %}
+					{% endif %}
+					{% set categories =  categories ~ defaultCategory1name %}
+
+					{% set basketItemsVariants = "" %}
+					{% set basketItemsVariantsArray = item.variation.data.attributes %}
+					{% if basketItemsVariantsArray is not empty %}
+						{% for attribute in basketItemsVariantsArray %}
+								{% set basketItemsVariants = basketItemsVariants ~ attribute.attribute.names.name|trim|raw %}
+								{% set basketItemsVariants = basketItemsVariants ~ ": " %}
+								{% set basketItemsVariants = basketItemsVariants ~ attribute.value.names.name|trim|raw %}
+								{% if not loop.last %}
+									{% set basketItemsVariants = basketItemsVariants ~ ", " %}
+								{% endif %}
+						{% endfor %}
+					{% endif %}
+
+					{% set priceNet = item.variation.data.prices.default.data.priceNet %}
+					{% set amountNet = item.variation.data.prices.default.data.priceNet * item.quantity %}
+
+					{% if config("Tracking.showNetPrices") == "false" %}
+						{% if basket.totalVats[0].vatValue == 0 %}
+							{% set price = item.variation.data.prices.default.data.priceNet %}
+							{% set amount = item.variation.data.prices.default.data.priceNet * item.quantity %}
+						{% else %}
+							{% set price = item.variation.data.prices.default.data.price %}
+							{% set amount = item.variation.data.prices.default.data.price * item.quantity %}
+						{% endif %}
+					{% else %}
+						{% set price = item.variation.data.prices.default.data.priceNet %}
+						{% set amount = item.variation.data.prices.default.data.priceNet * item.quantity %}
+					{% endif %}
+
+					{% if item.variation.data.prices.rrp is not null %}
+						{% set rrp = item.variation.data.prices.rrp.data.price %}
+						{% set rrpNet = item.variation.data.prices.rrp.data.priceNet %}
+					{% else %}
+						{% set rrp = 0 %}
+						{% set rrpNet = 0 %}
+					{% endif %}
+
+					{% set basketProductName = item.variation.data|itemName|trim|raw %}
+
+					{% set basketBrand = singleBasketItem.documents[0].data.item.manufacturer.externalName|trim|raw %}
+
+					{% set basketVariant = basketItemsVariants|trim|raw %}
+
+					{
+							"id": "{{ item.variationId }}",
+							"number": "{{ singleBasketItem.documents[0].data.variation.number }}",
+							{% if '"' in basketProductName == true and "'" in basketProductName == false %}
+							"name": '{{ item.variation.data|itemName|trim|raw }}',
+							{% elseif '"' in basketProductName == false and "'" in basketProductName == true %}
+							"name": "{{ item.variation.data|itemName|trim|raw }}",
+							{% elseif '"' in basketProductName == true and "'" in basketProductName == true %}
+							"name": "{{ item.variation.data|itemName|trim }}",
+							{% else %}
+							"name": "{{ item.variation.data|itemName|trim|raw }}",
+							{% endif %}
+							{% if '"' in basketBrand == true and "'" in basketBrand == false %}
+							"brand": '{{ singleBasketItem.documents[0].data.item.manufacturer.externalName|trim|raw }}',
+							{% elseif '"' in basketBrand == false and "'" in basketBrand == true %}
+							"brand": "{{ singleBasketItem.documents[0].data.item.manufacturer.externalName|trim|raw }}",
+							{% elseif '"' in basketBrand == true and "'" in basketBrand == true %}
+							"brand": "{{ singleBasketItem.documents[0].data.item.manufacturer.externalName|trim }}",
+							{% else %}
+							"brand": "{{ singleBasketItem.documents[0].data.item.manufacturer.externalName|trim|raw }}",
+							{% endif %}
+							{% if '"' in basketVariant == true and "'" in basketVariant == false %}
+							"variant": '{{ basketItemsVariants|trim|raw }}',
+							{% elseif '"' in basketVariant == false and "'" in basketVariant == true %}
+							"variant": "{{ basketItemsVariants|trim|raw }}",
+							{% elseif '"' in basketVariant == true and "'" in basketVariant == true %}
+							"variant": "{{ basketItemsVariants|trim }}",
+							{% else %}
+							"variant": "{{ basketItemsVariants|trim|raw }}",
+							{% endif %}
+							{% if '"' in categories == true and "'" in categories == false %}
+							"category": '{{ categories|trim|raw }}',
+							{% elseif '"' in categories == false and "'" in categories == true %}
+							"category": "{{ categories|trim|raw }}",
+							{% elseif '"' in categories == true and "'" in categories == true %}
+							"category": "{{ categories|trim }}",
+							{% else %}
+							"category": "{{ categories|trim|raw }}",
+							{% endif %}
+							"price": {{ price|number_format(2, ".", "")|default(0) }},
+							"priceNet": {{ priceNet|number_format(2, ".", "")|default(0) }},
+							"amount": {{ amount|number_format(2, ".", "")|default(0) }},
+							"amountNet": {{ amountNet|number_format(2, ".", "")|default(0) }},
+							"rrp": {{ rrp|number_format(2, ".", "")|default(0) }},
+							"rrpNet": {{ rrpNet|number_format(2, ".", "")|default(0) }},
+							"quantity": {{ item.quantity }},
+							"list": list[{{ loop.index - 1 }}]
+				}{% if not loop.last %},{% endif %}
+				{% set position = loop.index + 1 %}
+				{% endfor %}
+			);
+
+			{#
+				// console.log(basketItems);
+			#}
+
+			return data = {
+				"basketData": basket,
+				"basketItems": basketItems
+			}
+
+		};
+
+		$(document).ready(function() {
+
+			var stateInitial = true;
+			var list = sessionList(stateInitial);
+			variationChanged = false;
+			latestEntryLogged = false;
+
+			basket = getBasket(list);
+			basketItems = basket.basketItems;
+			basketData = basket.basketData
+
+			{% set webstoreName = webstoreConfig.name|trim|raw %}
+
+			dataLayer.push ({
+				"event": "globalValues",
+				"currency": "{{ currencyData.name }}",
+				"lang": "{{ lang }}",
+				"pageType": "{{ pageType }}",
+				{% if '"' in webstoreName == true and "'" in webstoreName == false %}
+				"webstoreName": '{{ webstoreConfig.name|trim|raw }}',
+				{% elseif '"' in webstoreName == false and "'" in webstoreName == true %}
+				"webstoreName": "{{ webstoreConfig.name|trim|raw }}",
+				{% elseif '"' in webstoreName == true and "'" in webstoreName == true %}
+				"webstoreName": "{{ webstoreConfig.name|trim }}",
+				{% else %}
+				"webstoreName": "{{ webstoreConfig.name|trim|raw }}",
+				{% endif %}
+				"customerEmail": "{{ customerEmail|raw }}",
+				"customerId": "{{ customerId }}",
+				"basketItems": basketItems,
+				"basketData": basketData
+			});
+
+			openBasketPreview();
+
+		});
+
+		{% if services.template.isCurrentTemplate("tpl.register") == false %}
+			var signUpLogged = false;
+			document.addEventListener("onSignUpSuccess", function(event){
+				$(document).on('onSetUserData', function() {
+					if(signUpLogged === false) {
+						dataLayer.push ({
+							"event": "signUpWebshop"
+						});
+					}
+					signUpLogged = true;
+				});
+			});
+		{% endif %}
+
+		document.addEventListener("onContactFormSend", function(event){
+			dataLayer.push ({
+				"event": "contactFormSend"
+			});
+		});
+
+	</script>
+
+	{#######################################################################################################
+	#######################################################################################################
+	HOME 	HOME 	HOME 	HOME 	HOME 	HOME 	HOME 	HOME  HOME  HOME  HOME  HOME  HOME  HOME  HOME  HOME  HOME
+	#######################################################################################################
+	#######################################################################################################}
+
+	{% if services.template.isCurrentTemplate("tpl.home") == true %}
+
+		<script>
+
+			$(document).ready(function(){
+
+				dataLayer.push ({
+					"event": "pageHome",
+					"categoryName": "Home"
+				});
+
+				var variationData = "";
+				variationChanged = false;
+
+				addToCartItemList(variationData);
+
+			});
+
+		</script>
+
+	{#######################################################################################################
+	#######################################################################################################
+	SINGLEITEM 	SINGLEITEM 	SINGLEITEM 	SINGLEITEM 	SINGLEITEM 	SINGLEITEM 	SINGLEITEM 	SINGLEITEM
+	#######################################################################################################
+	#######################################################################################################}
+
+	{% elseif services.template.isCurrentTemplate("tpl.item") == true %}
+
+		{% if displayName == "itemName" %}
+			{% if itemName == "name1" %}
+				{% set itemName = item.documents[0].data.texts.name1|trim|raw %}
+			{% elseif itemName == "name2" %}
+				{% set itemName = item.documents[0].data.texts.name2|trim|raw %}
+			{% elseif itemName == "name3" %}
+				{% set itemName = item.documents[0].data.texts.name3|trim|raw %}
+			{% endif %}
+		{% elseif displayName == "variationName" and item.documents[0].data.variation.name != '' %}
+			{% set itemName = item.documents[0].data.variation.name|trim|raw %}
+		{% elseif displayName == "itemNameVariationName" and item.documents[0].data.variation.name != '' %}
+			{% if itemName == "name1" %}
+				{% set itemName = item.documents[0].data.texts.name1|trim|raw ~ " " + item.documents[0].data.variation.name|trim|raw %}
+			{% elseif itemName == "name2" %}
+				{% set itemName = item.documents[0].data.texts.name2|trim|raw + " " + item.documents[0].data.variation.name|trim|raw %}
+			{% elseif itemName == "name3" %}
+				{% set itemName = item.documents[0].data.texts.name3|trim|raw + " " + item.documents[0].data.variation.name|trim|raw %}
+			{% endif %}
+		{% endif %}
+
+		{% set categories = "" %}
+		{% set categoriesArray = categoryBreadcrumbs %}
+		{% if categoriesArray is not empty %}
+			{% for category in categoriesArray[:categoriesArray|length - 1] %}
+					{% set categories = categories ~ category.details[0].name %}
+					{% if not loop.last %}
+						{% set categories = categories ~ " > " %}
+					{% endif %}
+			{% endfor %}
+		{% endif %}
+		{% set categoriesTree = categories %}
+
+		{% if config("Tracking.showNetPrices") == "false" %}
+			{% set itemPrice = item.documents[0].data.prices.default.data.price %}
+		{% else %}
+			{% set itemPrice = item.documents[0].data.prices.default.data.priceNet %}
+		{% endif %}
+
+		{% set itemBrand = item.documents[0].data.item.manufacturer.externalName|trim|raw %}
+
+		<script>
+
+			{#
+				//{% set crossSellingList = services.itemList.getItemList("cross_selling", data.variationId, null, null, "similar") %}
+			#}
+
+			{#
+				//var crossSellingList = {{ crossSellingList|json_encode|raw }};
+				//console.log(crossSellingList);
+			#}
+
+			{#
+				// initiale Daten des Single Item
+			#}
+
+			var singleItem = [];
+			var variant = "";
+			var variationData = [];
+
+			function singleItemView(variationData, quantity) {
+
+				var priceTotal = parseFloat(variationData.price)*parseFloat(quantity);
+				var priceTotalNet = parseFloat(variationData.priceNet)*parseFloat(quantity);
+
+				singleItem = [
+					{
+						"id": variationData.variationId,
+						"number": variationData.variationNumber,
+						{% if '"' in itemName == true and "'" in itemName == false %}
+						"name": '{{ itemName|trim|raw }}',
+						{% elseif '"' in itemName == false and "'" in itemName == true %}
+						"name": "{{ itemName|trim|raw }}",
+						{% elseif '"' in itemName == true and "'" in itemName == true %}
+						"name": "{{ itemName|trim }}",
+						{% else %}
+						"name": "{{ itemName|trim|raw }}",
+						{% endif %}
+						"price": parseFloat(variationData.price.toFixed(2)),
+						"priceNet": parseFloat(variationData.priceNet.toFixed(2)),
+						"amount": parseFloat(priceTotal.toFixed(2)),
+						"amountNet": parseFloat(priceTotalNet.toFixed(2)),
+						"rrp": parseFloat(variationData.rrp.toFixed(2)),
+						"rrpNet": parseFloat(variationData.rrpNet.toFixed(2)),
+						{% if '"' in itemBrand == true and "'" in itemBrand == false %}
+						"brand": '{{ item.documents[0].data.item.manufacturer.externalName|trim|raw }}',
+						{% elseif '"' in itemBrand == false and "'" in itemBrand == true %}
+						"brand": "{{ item.documents[0].data.item.manufacturer.externalName|trim|raw }}",
+						{% elseif '"' in itemBrand == true and "'" in itemBrand == true %}
+						"brand": "{{ item.documents[0].data.item.manufacturer.externalName|trim }}",
+						{% else %}
+						"brand": "{{ item.documents[0].data.item.manufacturer.externalName|trim|raw }}",
+						{% endif %}
+						{% if '"' in categoriesTree == true and "'" in categoriesTree == false %}
+						"category": '{{ categoriesTree|trim|raw }}',
+						{% elseif '"' in categoriesTree == false and "'" in categoriesTree == true %}
+						"category": "{{ categoriesTree|trim|raw }}",
+						{% elseif '"' in categoriesTree == true and "'" in categoriesTree == true %}
+						"category": "{{ categoriesTree|trim }}",
+						{% else %}
+						"category": "{{ categoriesTree|trim|raw }}",
+						{% endif %}
+						"variant": variationData.attributes,
+						"quantity": parseFloat(quantity),
+						"list": variationData.list
+					}
+				];
+
+				return singleItem;
+
+			};
+
+			$(document).ready(function() {
+
+				var quantity = 1;
+				var variationId = "{{ item.documents[0].data.variation.id|default(0) }}";
+				var variationNumber = "{{ item.documents[0].data.variation.number|default(0) }}";
+				var attributes = "{% for attribute in item.documents[0].data.attributes %}{{ attribute.attribute.names.name|raw  }}: {{ attribute.value.names.name|raw }}{% if not loop.last %}, {% endif %}{% endfor %}";
+				var priceNet = {{ item.documents[0].data.prices.default.data.priceNet|default(0) }};
+				{% if config("Tracking.showNetPrices") == "false" %}
+					var price = {{ item.documents[0].data.prices.default.data.price|default(0) }};
+				{% else %}
+					var price = {{ item.documents[0].data.prices.default.data.priceNet|default(0) }};
+				{% endif %}
+				{% if item.documents[0].data.prices.rrp is not null %}
+					var rrp = {{ item.documents[0].data.prices.rrp.data.price|default(0) }};
+					var rrpNet = {{ item.documents[0].data.prices.rrp.data.priceNet|default(0) }};
+				{% else %}
+					var rrp = 0;
+					var rrpNet = 0;
+				{% endif %}
+
+				listName = "";
+
+				if ( JSON.parse(getCookie("sessionItemList")) != null ) {
+					var sessionItemList = JSON.parse(getCookie("sessionItemList"));
+
+					for (var i = 0; i < sessionItemList.length; i++) {
+
+							if (sessionItemList[i]['itemId'] == {{ item.documents[0].data.variation.id|default(0) }}) {
+
+										listName = sessionItemList[i]['itemList'];
+										break;
+							}
+							else {
+								listName = "";
+							}
+					}
+
+				}
+
+				var variationData = {
+					variationId: variationId,
+					variationNumber: variationNumber,
+					attributes: attributes,
+					price: price,
+					priceNet: priceNet,
+					rrp: rrp,
+					rrpNet: rrpNet,
+					list: listName
+				}
+
+				singleItemView(variationData, quantity);
+
+				variationChanged = false;
+
+				addToCartItemList(variationData);
+
+				dataLayer.push ({
+					"event": "singleItemView",
+					"singleItem": singleItem
+				});
+
+				document.addEventListener('onVariationChanged', function (event) {
+
+					var event = event;
+
+					{#
+						//console.log(event.detail.documents[0].data);
+					#}
+
+					attributes = '';
+					variationId = event.detail.documents[0].data.variation.id.toString();
+					variationNumber = event.detail.documents[0].data.variation.number.toString();
+					priceNet = event.detail.documents[0].data.prices.default.data.priceNet;
+					{% if config("Tracking.showNetPrices") == "false" %}
+						var price = event.detail.documents[0].data.prices.default.data.price;
+					{% else %}
+						var price = event.detail.documents[0].data.prices.default.data.priceNet;
+					{% endif %}
+					if (event.detail.documents[0].data.prices.rrp != null) {
+						rrp = event.detail.documents[0].data.prices.rrp.data.price;
+						rrpNet = event.detail.documents[0].data.prices.rrp.data.priceNet;
+					}
+					else {
+						rrp = 0;
+						rrpNet = 0;
+					}
+
+					var i = 0;
+					$.each(event.detail.documents[0].data.attributes, function( index, item ) {
+						attributes += event.detail.documents[0].data.attributes[i].attribute.names.name + ': ' + event.detail.documents[0].data.attributes[i].value.names.name;
+						if (index < (event.detail.documents[0].data.attributes.length-1)) {
+							attributes += ", ";
+						}
+						i = i+1;
+					});
+
+					variationData = {
+						variationId: variationId,
+						variationNumber: variationNumber,
+						attributes: attributes,
+						price: price,
+						priceNet: priceNet,
+						rrp: rrp,
+						rrpNet: rrpNet,
+						list: listName
+					};
+
+					singleItemView(variationData, quantity);
+					var currentItem = singleItem;
+					saveItemList(currentItem);
+
+					variationChanged = true;
+
+					addToCartItemList(variationData);
+
+					return variationData;
+
+				});
+
+				document.addEventListener("afterBasketItemAdded", function(event){
+
+					var event = $(event);
+
+					var payloadItemId = event[0].detail.variationId.toString();
+
+					if(payloadItemId == variationData.variationId) {
+
+						{#
+							// neue Daten des Single Item beim Legen in den Warenkorb - Änderung der Anzahl
+						#}
+
+						quantity = event[0].detail.quantity;
+						singleItemView(variationData, quantity);
+						dataLayer.push ({
+							"event": "addToCartSingleItem",
+							"addToCartSingleItem": singleItem
+						});
+
+						var stateInitial = false;
+						basketItemsReloaded = getCurrentBasketItems(stateInitial);
+
+						dataLayer.push({
+							"event":"basketItemsReloaded",
+							"basketItemsReloaded": basketItemsReloaded
+						});
+					}
+
+				});
+
+				$(document).on('onAddWishListId', function () {
+					dataLayer.push ({
+						"event": "addToWishListSingleItem",
+						"addToWishListSingleItem": singleItem
+					});
+				});
+
+			});
+
+		</script>
+
+	{#######################################################################################################
+	#######################################################################################################
+	CATEGORY 	SEARCH 	CATEGORY 	SEARCH 	CATEGORY 	SEARCH 	CATEGORY 	SEARCH 	CATEGORY 	SEARCH   CATEGORY
+	#######################################################################################################
+	#######################################################################################################}
+
+	{% elseif services.template.isCurrentTemplate("tpl.search") == true or services.template.isCurrentTemplate("tpl.category.item") == true %}
+
+		<script>
+
+			{% set categories = "" %}
+			{% set categoriesArray = categoryBreadcrumbs %}
+			{% if categoriesArray is not empty %}
+				{% for category in categoriesArray %}
+						{% set categories = categories ~ category.details[0].name %}
+						{% if not loop.last %}
+							{% set categories = categories ~ " > " %}
+						{% endif %}
+				{% endfor %}
+			{% endif %}
+
+			{#
+				//initiale Daten Artikellisten
+			#}
+			var itemListProducts = [];
+			itemListProducts.push(
+				{% set position = 1 %}
+				{% for item in itemList %}
+
+					{% set itemPriceNet = item.data.prices.default.data.priceNet|default(0) %}
+					{% if config("Tracking.showNetPrices") == "false" %}
+						{% set itemPrice = item.data.prices.default.data.price|default(0) %}
+					{% else %}
+						{% set itemPrice = item.data.prices.default.data.priceNet|default(0) %}
+					{% endif %}
+					{% if item.data.prices.rrp is not null %}
+						{% set rrp = item.data.prices.rrp.data.price|default(0) %}
+						{% set rrpNet = item.data.prices.rrp.data.priceNet|default(0) %}
+					{% else %}
+						{% set rrp = 0 %}
+						{% set rrpNet = 0 %}
+					{% endif %}
+
+					{% set itemVariants = "" %}
+					{% set itemVariantsArray = item.data.attributes %}
+					{% if itemVariantsArray is not empty %}
+						{% for attribute in itemVariantsArray %}
+								{% set itemVariants = itemVariants ~ attribute.attribute.names.name|trim|raw %}
+								{% set itemVariants = itemVariants ~ ": " %}
+								{% set itemVariants = itemVariants ~ attribute.value.names.name|trim|raw %}
+								{% if not loop.last %}
+									{% set itemVariants = itemVariants ~ ", " %}
+								{% endif %}
+						{% endfor %}
+					{% endif %}
+
+					{% set listProductName = item.data|itemName|trim|raw %}
+
+					{% set listBrand = item.data.item.manufacturer.externalName|trim|raw %}
+
+					{% set listVariants = itemVariants|trim|raw %}
+
+					{
+							"id": "{{ item.id }}",
+							"number": "{{ item.data.variation.number }}",
+							{% if '"' in listProductName == true and "'" in listProductName == false %}
+							"name": '{{ item.data|itemName|trim|raw }}',
+							{% elseif '"' in listProductName == false and "'" in listProductName == true %}
+							"name": "{{ item.data|itemName|trim|raw }}",
+							{% elseif '"' in listProductName == true and "'" in listProductName == true %}
+							"name": "{{ item.data|itemName|trim }}",
+							{% else %}
+							"name": "{{ item.data|itemName|trim|raw }}",
+							{% endif %}
+							{% if '"' in listBrand == true and "'" in listBrand == false %}
+							"brand": '{{ item.data.item.manufacturer.externalName|trim|raw }}',
+							{% elseif '"' in listBrand == false and "'" in listBrand == true %}
+							"brand": "{{ item.data.item.manufacturer.externalName|trim|raw }}",
+							{% elseif '"' in listBrand == true and "'" in listBrand == true %}
+							"brand": "{{ item.data.item.manufacturer.externalName|trim }}",
+							{% else %}
+							"brand": "{{ item.data.item.manufacturer.externalName|trim|raw }}",
+							{% endif %}
+							{% if '"' in listVariants == true and "'" in listVariants == false %}
+							"variant": '{{ itemVariants|trim|raw }}',
+							{% elseif '"' in listVariants == false and "'" in listVariants == true %}
+							"variant": "{{ itemVariants|trim|raw }}",
+							{% elseif '"' in listVariants == true and "'" in listVariants == true %}
+							"variant": "{{ itemVariants|trim }}",
+							{% else %}
+							"variant": "{{ itemVariants|trim|raw }}",
+							{% endif %}
+							{% if '"' in categories == true and "'" in categories == false %}
+							"category": '{{ categories|trim|raw }}',
+							{% elseif '"' in categories == false and "'" in categories == true %}
+							"category": "{{ categories|trim|raw }}",
+							{% elseif '"' in categories == true and "'" in categories == true %}
+							"category": "{{ categories|trim }}",
+							{% else %}
+							"category": "{{ categories|trim|raw }}",
+							{% endif %}
+							"price": {{ itemPrice|number_format(2, ".", "") }},
+							"priceNet": {{ itemPriceNet|number_format(2, ".", "") }},
+							"rrp": {{ rrp|number_format(2, ".", "") }},
+							"rrpNet": {{ rrpNet|number_format(2, ".", "") }},
+							"position": {{ position }},
+							{% if services.template.isCurrentTemplate("tpl.search") == true %}
+								{% if '"' in searchString == true and "'" in searchString == false %}
+									"list": '{{ trans("Tracking::Template.itemListSearchResultsLabel") }} {{ searchString|trim }}',
+								{% elseif '"' in searchString == false and "'" in searchString == true %}
+									"list": "{{ trans("Tracking::Template.itemListSearchResultsLabel") }} {{ searchString|trim }}",
+								{% elseif '"' in searchString == true and "'" in searchString == true %}
+									"list": "{{ trans("Tracking::Template.itemListSearchResultsLabel") }} {{ searchString|trim }}",
+								{% else %}
+									"list": "{{ trans("Tracking::Template.itemListSearchResultsLabel") }} {{ searchString|trim }}",
+								{% endif %}
+							{% else %}
+								{% if '"' in categories == true and "'" in categories == false %}
+									"list": '{% if trans("Tracking::Template.itemListCategoryLabel") != "" %}{{ trans("Tracking::Template.itemListCategoryLabel") }} {% endif %}{{ categories|trim|raw }}{% if trans("Tracking::Template.itemListPaginationLabel") != "" %}, {{ trans("Tracking::Template.itemListPaginationLabel") }} {{ currentPage }}{% endif %}',
+								{% elseif '"' in categories == false and "'" in categories == true %}
+									"list": "{% if trans("Tracking::Template.itemListCategoryLabel") != "" %}{{ trans("Tracking::Template.itemListCategoryLabel") }} {% endif %}{{ categories|trim|raw }}{% if trans("Tracking::Template.itemListPaginationLabel") != "" %}, {{ trans("Tracking::Template.itemListPaginationLabel") }} {{ currentPage }}{% endif %}",
+								{% elseif '"' in categories == true and "'" in categories == true %}
+									"list": "{% if trans("Tracking::Template.itemListCategoryLabel") != "" %}{{ trans("Tracking::Template.itemListCategoryLabel") }} {% endif %}{{ categories|trim }}{% if trans("Tracking::Template.itemListPaginationLabel") != "" %}, {{ trans("Tracking::Template.itemListPaginationLabel") }} {{ currentPage }}{% endif %}",
+								{% else %}
+									"list": "{% if trans("Tracking::Template.itemListCategoryLabel") != "" %}{{ trans("Tracking::Template.itemListCategoryLabel") }} {% endif %}{{ categories|trim|raw }}{% if trans("Tracking::Template.itemListPaginationLabel") != "" %}, {{ trans("Tracking::Template.itemListPaginationLabel") }} {{ currentPage }}{% endif %}",
+								{% endif %}
+							{% endif %}
+							"productLink": "{{ webstoreConfig.domainSsl }}/{{ item.data|itemURL }}",
+							"quantity": 1,
+							"type": "{{ item.bundleType }}"
+				}{% if not loop.last %},{% endif %}
+				{% set position = loop.index + 1 %}
+				{% endfor %}
+			);
+
+			$("document").ready(function() {
+
+				var sessionItemList = [];
+				if ( JSON.parse(getCookie("sessionItemList")) != null ) {
+					var sessionItemList = JSON.parse(getCookie("sessionItemList"));
+				}
+
+				{#
+					//console.log(itemListProducts);
+				#}
+
+				dataLayer.push({
+					"event" : "itemListView",
+					"itemList": itemListProducts
+				});
+
+				{% if services.template.isCurrentTemplate("tpl.search") == true %}
+						dataLayer.push ({
+							"event": "searchResultsView",
+							"searchString": "{{ searchString }}",
+							"categoryName": "Search Results"
+						});
+				{% else %}
+						dataLayer.push ({
+							"event": "pageCategoryArticle",
+							"categoryName": "{{ category.details[0].name }}"
+						});
+				{% endif %}
+
+		 		{% if itemList is not empty %}
+
+					function productClick(item) {
+
+						{#
+							// einzelnes, angeklicktes Item aus Item List
+						#}
+						var clickedItem = [];
+						var clickedItem = [
+							{
+								"id": item.id,
+								"number": item.number,
+								"name": item.name,
+								"brand": item.brand,
+								"variant": item.variant,
+								"category": item.category,
+								"price": parseFloat(item.price.toFixed(2)),
+								"priceNet": parseFloat(item.priceNet.toFixed(2)),
+								"rrp": parseFloat(item.rrp.toFixed(2)),
+								"rrpNet": parseFloat(item.rrpNet.toFixed(2)),
+								"position": item.position,
+								"list": item.list,
+								"productLink": item.productLink,
+								"quantity": 1,
+								"type": item.type
+							}
+						];
+
+						var currentItem = clickedItem;
+						saveItemList(currentItem);
+
+		        dataLayer.push({
+		            "event": "productClick",
+								"clickedItem": clickedItem
+		        });
+		    	};
+
+					function addToCart(item) {
+
+						{#
+							// einzelnes, in den Warenkorb gelegtes Item aus Item List
+						#}
+
+						var addToCartItem = [];
+						var addToCartItem = [
+							{
+								"id": item.id,
+								"number": item.number,
+								"name": item.name,
+								"brand": item.brand,
+								"variant": item.variant,
+								"category": item.category,
+								"price": parseFloat(item.price.toFixed(2)),
+								"priceNet": parseFloat(item.priceNet.toFixed(2)),
+								"rrp": parseFloat(item.rrp.toFixed(2)),
+								"rrpNet": parseFloat(item.rrpNet.toFixed(2)),
+								"position": item.position,
+								"list": item.list,
+								"productLink": item.productLink,
+								"quantity": 1,
+								"type": item.type
+							}
+						];
+
+						var currentItem = addToCartItem;
+						saveItemList(currentItem);
+
+						dataLayer.push({
+							"event":"addToCartItemList",
+							"addToCartItem": addToCartItem
+						});
+
+					};
+
+					if($(".product-list article a").length > 0) {
+						$(".product-list article a").on("click", function (event) {
+							var listElement = $(event.target).parents("article").eq(0).parent();
+							if(listElement.length > 0) {
+								var item = itemListProducts[$(".product-list > *").index(listElement)];
+								productClick(item);
+							}
+						});
+					}
+
+					if($(".product-list .add-to-basket-lg-container").length > 0 || $(".category-list-view-port button").length > 0) {
+						$(".product-list .add-to-basket-lg-container, .category-list-view-port button").on("click", function (event) {
+							var listElement = $(event.target).parents("article").eq(0).parent();
+							if(listElement.length > 0) {
+								var item = itemListProducts[$(".product-list > *").index(listElement)];
+								addToCart(item);
+							}
+						});
+					}
+
+					document.addEventListener("afterBasketItemAdded", function(event){
+
+						var stateInitial = false;
+						basketItemsReloaded = getCurrentBasketItems(stateInitial);
+
+						dataLayer.push({
+							"event":"basketItemsReloaded",
+							"basketItemsReloaded": basketItemsReloaded
+						});
+
+					});
+
+				{% endif %}
+
+			});
+
+		</script>
+
+	{#######################################################################################################
+	#######################################################################################################
+	BASKET 	BASKET 	BASKET 	BASKET 	BASKET 	BASKET 	BASKET 	BASKET 	BASKET 	BASKET   BASKET  BASKET  BASKET
+	#######################################################################################################
+	#######################################################################################################}
+
+	{% elseif services.template.isCurrentTemplate("tpl.basket") == true or services.template.isCurrentTemplate("tpl.checkout") == true %}
+
+		<script>
+
+			$(document).ready(function() {
+
+				dataLayer.push ({
+					"event":"pageBasket"
+				});
+
+				{% if services.template.isCurrentTemplate("tpl.checkout") == true %}
+						$(document).ready(function(){
+							dataLayer.push ({
+								"event": "startCheckoutProcess"
+							});
+						});
+				{% endif %}
+
+			});
+
+		</script>
+
+	{#######################################################################################################
+	#######################################################################################################
+	REGISTER 	REGISTER 	REGISTER 	REGISTER 	REGISTER 	REGISTER 	REGISTER  REGISTER  REGISTER  REGISTER
+	#######################################################################################################
+	#######################################################################################################}
+
+	{% elseif services.template.isCurrentTemplate("tpl.register") == true %}
+
+		<script>
+
+			var signUpLogged = false;
+
+			document.addEventListener("onSignUpSuccess", function(event){
+				$(document).on('onSetUserData', function() {
+					if (signUpLogged = false) {
+						dataLayer.push ({
+							"event": "signUpCheckout"
+						});
+					}
+					signUpLogged === true;
+				});
+			});
+
+		</script>
+
+	{#######################################################################################################
+	#######################################################################################################
+	CONFIRMATION 	CONFIRMATION 	CONFIRMATION 	CONFIRMATION 	CONFIRMATION 	CONFIRMATION 	CONFIRMATION
+	#######################################################################################################
+	#######################################################################################################}
+
+	{% elseif services.template.isCurrentTemplate("tpl.confirmation") == true %}
+		{% if debugTracking %} <script>console.log('tpl.confirmation == true');</script> {% endif %}
+		{% if alwaysEnableTracking %} {% set trackOrder = 1 %} {% endif %}
+		{% if trackOrder %}	{# deactivate trackOrder with (# if trackOrder #) and its ending (# endif #) in row 2048 for debugging order confirmation #}
+			{% if debugTracking %} <script>console.log('trackOrder is set');</script> {% endif %}
+			{% if debugTracking %} <script>console.log('services.customer.getLatestOrder() is: (next log line)');console.log({{ data|json_encode|raw }});</script> {% endif %}
+
+			{% if alwaysEnableTracking %}
+            	{% set data = _context.data %} {# is it good to take order data from _context? #}
+			{% else %}
+            	{% set data = services.customer.getLatestOrder() %}
+			{% endif %}
+
+			{% if data is defined %}
+
+				{% set orderTotalNet = data.totals.totalNet %}
+				{% if debugTracking %} <script>console.log('orderTotalNet: ' + {{ orderTotalNet }});</script> {% endif %}
+				{% set orderItemSumNet = data.totals.itemSumNet %}
+				{% set orderShippingNet = data.totals.shippingNet %}
+				{% set couponDiscount = data.totals.couponValue %}
+				{% set vatValue = data.order.amounts[0].vatTotal %}
+
+				{% if config("Tracking.showNetPrices") == "false" %}
+					{% if data.order.amounts[0].vatTotal == 0 %}
+						{% set orderTotal = data.totals.totalNet %}
+						{% set orderItemSum = data.totals.itemSumNet %}
+						{% set orderRebate = data.totals.itemSumRebateNet %}
+						{% set orderShipping = data.totals.shippingNet %}
+						{% set vatRate = 0 %}
+					{% else %}
+						{% set orderTotal = data.totals.totalGross %}
+						{% set orderItemSum = data.totals.itemSumGross %}
+						{% set orderRebate = data.totals.itemSumRebateGross %}
+						{% set orderShipping = data.totals.shippingGross %}
+						{% set vatRate = data.totals.vats[0].rate %}
+					{% endif %}
+				{% else %}
+					{% set orderTotal = data.totals.totalNet %}
+					{% if debugTracking %} <script>console.log('orderTotal: ' + {{ orderTotal }});</script> {% endif %}
+
+					{% set orderItemSum = data.totals.itemSumNet %}
+					{% set orderRebate = data.totals.itemSumRebateNet %}
+					{% set orderShipping = data.totals.shippingNet %}
+					{% set vatRate = data.totals.vats[0].rate %}
+				{% endif %}
+
+				{% if data.order.orderItems is not empty %}
+
+				  <script>
+
+						$(document).ready(function(){
+
+							var stateInitial = true;
+							var list = sessionList(stateInitial);
+
+							{#
+								//var orderDataRaw = {{ data.order|json_encode|raw }};
+								//console.log(orderDataRaw);
+							#)
+
+							{#
+								//var dataRaw = {{ data|json_encode|raw }};
+								//console.log(dataRaw);
+							#}
+
+							{% set orderItemsQuantity = 0 %}
+							{% for item in data.order.orderItems %}
+								{% if item.itemVariationId > 0 and not ("[-]" in item.orderItemName) %}
+									{% set orderItemsQuantity = orderItemsQuantity + item.quantity %}
+								{% endif %}
+							{% endfor %}
+
+							{% set orderCouponCode =  data.totals.couponCode|trim|raw %}
+							{% set orderPaymentMethod = data.paymentMethodName|trim|raw %}
+							{% set orderShippingServiceProvider = data.shippingProvider|trim|raw %}
+
+							orderData = [];
+							orderData.push(
+								{
+									"amount": {{ orderTotal|number_format(2, ".", "")|default(0) }},
+									"amountNet": {{ orderTotalNet|number_format(2, ".", "")|default(0) }},
+									"itemSum": {{ orderItemSum|number_format(2, ".", "")|default(0) }},
+									"itemSumNet": {{ orderItemSumNet|number_format(2, ".", "")|default(0) }},
+									"shippingAmount": {{ orderShipping|number_format(2, ".", "")|default(0) }},
+									"shippingAmountNet": {{ orderShippingNet|number_format(2, ".", "")|default(0) }},
+									"rebate": {{ orderRebate|number_format(2, ".", "")|default(0) }},
+									"orderId": "{{ data.order.id|default(0) }}",
+									{% if '"' in orderCouponCode == true and "'" in orderCouponCode == false %}
+									"couponCode": '{{ data.totals.couponCode|trim|raw }}',
+									{% elseif '"' in orderCouponCode == false and "'" in orderCouponCode == true %}
+									"couponCode": "{{ data.totals.couponCode|trim|raw }}",
+									{% elseif '"' in orderCouponCode == true and "'" in orderCouponCode == true %}
+									"couponCode": "{{ data.totals.couponCode|trim }}",
+									{% else %}
+									"couponCode": "{{ data.totals.couponCode|trim|raw }}",
+									{% endif %}
+									"couponType": "{{ data.totals.couponType }}",
+									"couponDiscount": {{ couponDiscount|number_format(2, ".", "")|default(0) }},
+									"itemsQuantity": {{ orderItemsQuantity|default(0) }},
+									"vatValue": {{ vatValue|number_format(2, ".", "")|default(0) }},
+									"vatRate": {{ vatRate|number_format(2, ".", "")|default(0) }},
+									{% if '"' in orderPaymentMethod == true and "'" in orderPaymentMethod == false %}
+									"paymentMethod": '{{ data.paymentMethodName|trim|raw }}',
+									{% elseif '"' in orderPaymentMethod == false and "'" in orderPaymentMethod == true %}
+									"paymentMethod": "{{ data.paymentMethodName|trim|raw }}",
+									{% elseif '"' in orderPaymentMethod == true and "'" in orderPaymentMethod == true %}
+									"paymentMethod": "{{ data.paymentMethodName|trim }}",
+									{% else %}
+									"paymentMethod": "{{ data.paymentMethodName|trim|raw }}",
+									{% endif %}
+									{% if '"' in orderShippingServiceProvider == true and "'" in orderShippingServiceProvider == false %}
+									"shippingServiceProvider": '{{ data.shippingProvider|trim|raw }}',
+									{% elseif '"' in orderShippingServiceProvider == false and "'" in orderShippingServiceProvider == true %}
+									"shippingServiceProvider": "{{ data.shippingProvider|trim|raw }}",
+									{% elseif '"' in orderShippingServiceProvider == true and "'" in orderShippingServiceProvider == true %}
+									"shippingServiceProvider": "{{ data.shippingProvider|trim }}",
+									{% else %}
+									"shippingServiceProvider": "{{ data.shippingProvider|trim|raw }}",
+									{% endif %}
+									"status": "{{ data.status }}"
+								}
+							);
+
+							{% for item in data.order.orderItems %}
+								{% set singleOrderItem = services.item.getVariation(item.itemVariationId) %}
+								{% if item.itemVariationId > 0 and not ("[-]" in item.orderItemName) %}
+
+									{#
+										//var singleOrderItem = {{ singleOrderItem|json_encode|raw }};
+										//console.log(singleOrderItem);
+									#}
+
+								{% endif %}
+							{% endfor %}
+
+							orderItems = [];
+							orderItems.push(
+								{% for item in data.order.orderItems %}
+
+								  {% if item.itemVariationId > 0 and not ("[-]" in item.orderItemName) %}
+
+										{% set singleOrderItem = services.item.getVariation(item.itemVariationId) %}
+
+										{% set categories = "" %}
+										{% set defaultCategory1name = "" %}
+										{% set parentCategory1name = "" %}
+										{% set parentCategory2name = "" %}
+										{% set parentCategory3name = "" %}
+										{% set parentCategory4name = "" %}
+										{% set parentCategory5name = "" %}
+										{% set parentCategory6name = "" %}
+
+										{% set categoryLevels = singleOrderItem.documents[0].data.defaultCategories[0].level %}
+
+										{% set defaultCategoryId = singleOrderItem.documents[0].data.defaultCategories[0].id %}
+										{% set defaultCategoryDefaultObj = services.category.get(defaultCategoryId) %}
+										{% set defaultCategory1name = defaultCategoryDefaultObj.details[0].name %}
+										{% set parentCategory1Id = singleOrderItem.documents[0].data.defaultCategories[0].parentCategoryId %}
+
+										{% if parentCategory1Id != '' %}
+											{% set parentCategory1Obj = services.category.get(parentCategory1Id) %}
+											{% set parentCategory1name = parentCategory1Obj.details[0].name %}
+											{% set parentCategory2Id = parentCategory1Obj.parentCategoryId %}
+
+											{% if parentCategory2Id != '' %}
+												{% set parentCategory2Obj = services.category.get(parentCategory2Id) %}
+												{% set parentCategory2name = parentCategory2Obj.details[0].name %}
+												{% set parentCategory3Id = parentCategory2Obj.parentCategoryId %}
+
+												{% if parentCategory3Id != '' %}
+													{% set parentCategory3Obj = services.category.get(parentCategory3Id) %}
+													{% set parentCategory3name = parentCategory3Obj.details[0].name %}
+													{% set parentCategory4Id = parentCategory3Obj.parentCategoryId %}
+
+													{% if parentCategory4Id != '' %}
+														{% set parentCategory4Obj = services.category.get(parentCategory4Id) %}
+														{% set parentCategory4name = parentCategory4Obj.details[0].name %}
+														{% set parentCategory5Id = parentCategory4Obj.parentCategoryId %}
+
+														{% if parentCategory5Id != '' %}
+															{% set parentCategory5Obj = services.category.get(parentCategory5Id) %}
+															{% set parentCategory5name = parentCategory5Obj.details[0].name %}
+															{% set parentCategory6Id = parentCategory5Obj.parentCategoryId %}
+
+															{% if parentCategory6Id != '' %}
+																{% set parentCategory6Obj = services.category.get(parentCategory6Id) %}
+																{% set parentCategory6name = parentCategory6Obj.details[0].name %}
+															{% endif %}
+														{% endif %}
+													{% endif %}
+												{% endif %}
+											{% endif %}
+										{% endif %}
+
+										{% if parentCategory6name is not empty %}
+											{% set categories = parentCategory6name ~ " > " %}
+										{% endif %}
+										{% if parentCategory5name is not empty %}
+											{% set categories = parentCategory5name ~ " > " %}
+										{% endif %}
+										{% if parentCategory4name is not empty %}
+											{% set categories = parentCategory4name ~ " > " %}
+										{% endif %}
+										{% if parentCategory3name is not empty %}
+											{% set categories = categories ~ parentCategory3name ~ " > " %}
+										{% endif %}
+										{% if parentCategory2name is not empty %}
+											{% set categories = categories ~ parentCategory2name ~ " > " %}
+										{% endif %}
+										{% if parentCategory1name is not empty %}
+											{% set categories = categories ~ parentCategory1name ~ " > " %}
+										{% endif %}
+										{% set categories =  categories ~ defaultCategory1name %}
+
+										{% set orderItemsVariants = "" %}
+										{% set orderItemsVariantsArray = singleOrderItem.documents[0].data.attributes %}
+										{% if orderItemsVariantsArray is not empty %}
+											{% for attribute in orderItemsVariantsArray %}
+													{% set orderItemsVariants = orderItemsVariants ~ attribute.attribute.names.name|trim|raw %}
+													{% set orderItemsVariants = orderItemsVariants ~ ": " %}
+													{% set orderItemsVariants = orderItemsVariants ~ attribute.value.names.name|trim|raw %}
+													{% if not loop.last %}
+														{% set orderItemsVariants = orderItemsVariants ~ ", " %}
+													{% endif %}
+											{% endfor %}
+										{% endif %}
+
+										{% set currentVariationId = item.itemVariationId|trimNewlines %}
+										{% set variationNumber = singleOrderItem.documents[0].data.variation.number|trimNewlines %}
+										{% set priceNet = item.amounts[0].priceNet %}
+										{% set amountNet = item.amounts[0].priceNet * item.quantity %}
+
+										{% if config("Tracking.showNetPrices") == "false" %}
+											{% if data.order.amounts[0].vatTotal == 0 %}
+												{% set price = item.amounts[0].priceNet %}
+												{% set amount = item.amounts[0].priceNet * item.quantity %}
+											{% else %}
+												{% set price = item.amounts[0].priceGross %}
+												{% set amount = item.amounts[0].priceGross * item.quantity %}
+											{% endif %}
+										{% else %}
+											{% set price = item.amounts[0].priceNet %}
+											{% set amount = item.amounts[0].priceNet * item.quantity %}
+										{% endif %}
+
+										{% if singleOrderItem.documents[0].data.prices.rrp is not null %}
+											{% set rrp = singleOrderItem.documents[0].data.prices.rrp.data.price %}
+											{% set rrpNet = singleOrderItem.documents[0].data.prices.rrp.data.priceNet %}
+										{% else %}
+											{% set rrp = 0 %}
+											{% set rrpNet = 0 %}
+										{% endif %}
+
+										{% set orderProductName = item.orderItemName|trim|raw %}
+										{% set orderBrand = singleOrderItem.documents[0].data.item.manufacturer.externalName|trim|raw %}
+										{% set orderVariants = orderItemsVariants|trim|raw %}
+
+										{
+											"id": "{{ currentVariationId }}",
+											"number": "{{ variationNumber }}",
+											{% if '"' in orderProductName == true and "'" in orderProductName == false %}
+											"name": '{{ item.orderItemName|trim|raw }}',
+											{% elseif '"' in orderProductName == false and "'" in orderProductName == true %}
+											"name": "{{ item.orderItemName|trim|raw }}",
+											{% elseif '"' in orderProductName == true and "'" in orderProductName == true %}
+											"name": "{{ item.orderItemName|trim }}",
+											{% else %}
+											"name": "{{ item.orderItemName|trim|raw }}",
+											{% endif %}
+											{% if '"' in orderBrand == true and "'" in orderBrand == false %}
+											"brand": '{{ singleOrderItem.documents[0].data.item.manufacturer.externalName|trim|raw }}',
+											{% elseif '"' in orderBrand == false and "'" in orderBrand == true %}
+											"brand": "{{ singleOrderItem.documents[0].data.item.manufacturer.externalName|trim|raw }}",
+											{% elseif '"' in orderBrand == true and "'" in orderBrand == true %}
+											"brand": "{{ singleOrderItem.documents[0].data.item.manufacturer.externalName|trim }}",
+											{% else %}
+											"brand": "{{ singleOrderItem.documents[0].data.item.manufacturer.externalName|trim|raw }}",
+											{% endif %}
+											{% if '"' in orderVariants == true and "'" in orderVariants == false %}
+											"variant": '{{ orderItemsVariants|trim|raw }}',
+											{% elseif '"' in orderVariants == false and "'" in orderVariants == true %}
+											"variant": "{{ orderItemsVariants|trim|raw }}",
+											{% elseif '"' in orderVariants == true and "'" in orderVariants == true %}
+											"variant": "{{ orderItemsVariants|trim }}",
+											{% else %}
+											"variant": "{{ orderItemsVariants|trim|raw }}",
+											{% endif %}
+											{% if '"' in categories == true and "'" in categories == false %}
+											"category": '{{ categories|trim|raw }}',
+											{% elseif '"' in categories == false and "'" in categories == true %}
+											"category": "{{ categories|trim|raw }}",
+											{% elseif '"' in categories == true and "'" in categories == true %}
+											"category": "{{ categories|trim }}",
+											{% else %}
+											"category": "{{ categories|trim|raw }}",
+											{% endif %}
+											"price": {{ price|number_format(2, ".", "")|default(0) }},
+											"priceNet": {{ priceNet|number_format(2, ".", "")|default(0) }},
+											"amount": {{ amount|number_format(2, ".", "")|default(0) }},
+											"amountNet": {{ amountNet|number_format(2, ".", "")|default(0) }},
+											"rrp": {{ rrp|number_format(2, ".", "")|default(0) }},
+											"rrpNet": {{ rrpNet|number_format(2, ".", "")|default(0) }},
+											"quantity": {{ item.quantity|default(0) }},
+											"list": list[{{ loop.index - 1 }}]
+										}{% if not loop.last %},{% endif %}
+
+									{% endif %}
+								{% endfor %}
+							);
+
+						    dataLayer.push ({
+					            "event": "orderConfirmation",
+                                "orderData": orderData,
+					            "orderItems" : orderItems
+					        });
+						});
+					</script>
+
+				{% endif %}
+
+			{% endif %}
+
+		{% endif %}
+
+	{% endif %}
+
+<script>
+
+	$(document).ready(function() {
+		dataLayer.push ({
+			"event": "globalEvents"
+		});
+	});
+
+</script>
+
+{% endif %}

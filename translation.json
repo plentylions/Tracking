@@ -1,0 +1,92 @@
+{
+    "sections": [
+        {
+            "name": "Config.itemList",
+            "prefix": "itemList"
+        },
+        {
+            "name": "Config.consentGroup",
+            "prefix": "consentGroup"
+        },
+        {
+            "name": "Config.consentProductList",
+            "prefix": "consentProductList"
+        },
+        {
+            "name": "Config.consentGoogleAnalytics",
+            "prefix": "consentGoogleAnalytics"
+        },
+        {
+            "name": "Config.consentGoogleAds",
+            "prefix": "consentGoogleAds"
+        },
+        {
+            "name": "Config.consentFacebook",
+            "prefix": "consentFacebook"
+        },
+        {
+            "name": "Config.consentPinterest",
+            "prefix": "consentPinterest"
+        },
+        {
+            "name": "Config.consentBilligerDe",
+            "prefix": "consentBilligerDe"
+        },
+        {
+            "name": "Config.consentKelkoo",
+            "prefix": "consentKelkoo"
+        },
+        {
+            "name": "Config.consentPaypal",
+            "prefix": "consentPaypal"
+        },
+        {
+            "name": "Config.consentAwin",
+            "prefix": "consentAwin"
+        },
+        {
+            "name": "Config.consentWebgains",
+            "prefix": "consentWebgains"
+        },
+        {
+            "name": "Config.consentCustomCookieOne",
+            "prefix": "consentCustomCookieOne"
+        },
+        {
+            "name": "Config.consentCustomCookieTwo",
+            "prefix": "consentCustomCookieTwo"
+        },
+        {
+            "name": "Config.consentCustomCookieThree",
+            "prefix": "consentCustomCookieThree"
+        },
+        {
+            "name": "Config.consentCustomCookieFour",
+            "prefix": "consentCustomCookieFour"
+        },
+        {
+            "name": "Config.consentCustomCookieFive",
+            "prefix": "consentCustomCookieFive"
+        },
+        {
+            "name": "Config.consentCustomCookieSix",
+            "prefix": "consentCustomCookieSix"
+        },
+        {
+            "name": "Config.consentCustomCookieSeven",
+            "prefix": "consentCustomCookieSeven"
+        },
+        {
+            "name": "Config.consentCustomCookieEight",
+            "prefix": "consentCustomCookieEight"
+        },
+        {
+            "name": "Config.consentCustomCookieNine",
+            "prefix": "consentCustomCookieNine"
+        },
+        {
+            "name": "Config.consentCustomCookieTen",
+            "prefix": "consentCustomCookieTen"
+        }
+    ]
+}

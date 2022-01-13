@@ -1,0 +1,15 @@
+{% set googleSiteVerification1 = config("Tracking.googleSiteVerification1") %}
+{% set googleSiteVerification2 = config("Tracking.googleSiteVerification2") %}
+{% set googleSiteVerification3 = config("Tracking.googleSiteVerification3") %}
+
+{% if googleSiteVerification1 is not empty %}
+	{{ googleSiteVerification1 | raw }}
+{% endif %}
+
+{% if googleSiteVerification2 is not empty %}
+	{{ googleSiteVerification2 | raw }}
+{% endif %}
+
+{% if googleSiteVerification3 is not empty %}
+	{{ googleSiteVerification3 | raw }}
+{% endif %}
