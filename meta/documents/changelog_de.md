@@ -1,5 +1,11 @@
 # Release Notes for Google Tag Manager Tracking ENTERPRISE
 
+## v.5.0.5 (2022-03-28)
+
+### Geändert
+
+- Die Beschreibung wurde aktualisiert.
+
 ## v.5.0.4 (2022-01-14)
 
 ### Geändert

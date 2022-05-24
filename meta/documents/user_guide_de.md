@@ -1,7 +1,7 @@
 # Google Tag Manager Tracking ENTERPRISE
 
 <div class="alert alert-info" role="alert">
-    Die "JSON-Import-Datei" erhalten Sie als Download unter [https://www.ecomsilio.de/plugin/gtm-tracking-enterprise/GTM-Enterprise-Import-v-5-0-3.json.zip](https://www.ecomsilio.de/plugin/gtm-tracking-enterprise/GTM-Enterprise-Import-v-5-0-3.json.zip "JSON-Import-Datei herunterladen").
+    Die "JSON-Import-Datei" erhalten Sie als Download unter <a href="https://www.ecomsilio.de/plugin/gtm-tracking-enterprise/GTM-Enterprise-Import-v-5-0-3.json.zip">https://www.ecomsilio.de/plugin/gtm-tracking-enterprise/GTM-Enterprise-Import-v-5-0-3.json.zip</a>.
 </div>
 
 ## 1. Inhalt
@@ -91,8 +91,6 @@ _Google Tag Manager Container ID:_
 ### 2.2. Daten in den Google Tag Manager importieren
 
 Alle Variablen, Tags und Trigger, die Sie für die oben genannten Tracking Codes brauchen, haben wir bereits für Sie in einer **"JSON-Import-Datei"** vorbereitet. Sie können diese Datei in den Google Tag Manager importieren.
-
-**Sie bekommen die Import-Datei nach dem Kauf des Plugins separat per E-Mail von uns zugesandt.**
 
 1. Gehen Sie in Ihrem Google Tag Manager Konto auf den Tab **"Verwaltung"** und wählen Sie **"Container importieren"**.  
 
@@ -668,6 +666,6 @@ Sie benötigen ein PayPal-Geschäftskonto und müssen die Marketing Solutions mi
 
 <div class="alert alert-danger" role="alert">
     Dieses Plugin steht nur noch als Self-Service-Plugin zur Verfügung. Bei Fragen oder Probleme bei der Installation oder der Nutzung, besteht kein Anspruch auf einen Support der Firma ecomsilio GmbH. 
+	</div>
 
-	Der Quellcode kann als Github Repository heruntergeladen werden unter [https://github.com/gijsrutten/Tracking](https://github.com/gijsrutten/Tracking "Github Repository").
-</div>
+Der Quellcode kann als Github Repository heruntergeladen werden unter [https://github.com/gijsrutten/Tracking](https://github.com/gijsrutten/Tracking "Github Repository").

@@ -1,7 +1,7 @@
 # Google Tag Manager Tracking ENTERPRISE
 
 <div class = "alert alert-info" role = "alert">
-     You can download the "JSON import file" from [https://www.ecomsilio.de/plugin/gtm-tracking-enterprise/GTM-Enterprise-Import-v-5-0-3.json.zip] (https://www.ecomsilio.de/plugin/gtm-tracking-enterprise/GTM-Enterprise-Import-v-5-0-3.json.zip "Download JSON import file").
+     You can download the "JSON import file" from <a href="https://www.ecomsilio.de/plugin/gtm-tracking-enterprise/GTM-Enterprise-Import-v-5-0-3.json.zip">https://www.ecomsilio.de/plugin/gtm-tracking-enterprise/GTM-Enterprise-Import-v-5-0-3.json.zip</a>.
 </div>
 
 ## 1. Content
@@ -653,6 +653,6 @@ You need a PayPal business account and need to activate Marketing Solutions with
 
 <div class = "alert alert-danger" role = "alert">
      This plug-in is only available as a self-service plug-in. If you have any questions or problems with installation or use, there is no entitlement to support from ecomsilio GmbH.
-	 
-	 The source code can be downloaded as a Github repository at [https://github.com/gijsrutten/Tracking ](https://github.com/gijsrutten/Tracking "Github Repository").
 </div>
+
+The source code can be downloaded as a Github repository at [https://github.com/gijsrutten/Tracking ](https://github.com/gijsrutten/Tracking "Github Repository").
