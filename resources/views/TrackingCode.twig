@@ -1250,11 +1250,11 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 			{% set itemName = item.documents[0].data.variation.name|trim|raw %}
 		{% elseif displayName == "itemNameVariationName" and item.documents[0].data.variation.name != '' %}
 			{% if itemName == "name1" %}
-				{% set itemName = item.documents[0].data.texts.name1|trim|raw ~ " " + item.documents[0].data.variation.name|trim|raw %}
+				{% set itemName = item.documents[0].data.texts.name1|trim|raw ~ " " ~ item.documents[0].data.variation.name|trim|raw %}
 			{% elseif itemName == "name2" %}
-				{% set itemName = item.documents[0].data.texts.name2|trim|raw + " " + item.documents[0].data.variation.name|trim|raw %}
+				{% set itemName = item.documents[0].data.texts.name2|trim|raw ~ " " ~ item.documents[0].data.variation.name|trim|raw %}
 			{% elseif itemName == "name3" %}
-				{% set itemName = item.documents[0].data.texts.name3|trim|raw + " " + item.documents[0].data.variation.name|trim|raw %}
+				{% set itemName = item.documents[0].data.texts.name3|trim|raw ~ " " ~ item.documents[0].data.variation.name|trim|raw %}
 			{% endif %}
 		{% endif %}
 
