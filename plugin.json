@@ -6,7 +6,7 @@
     },
     "namespace": "Tracking",
     "isClosedSource": false,
-    "version": "5.0.5",
+    "version": "5.0.6",
     "license": "AGPL-3.0",
     "price": 0,
     "type": "template",
@@ -55,8 +55,8 @@
         "consent"
     ],
     "require": {
-        "IO": ">=4.6.0",
-        "Ceres": ">=4.6.0"
+        "IO": ">=5.0.0",
+        "Ceres": ">=5.0.0"
     },
     "serviceProvider": "Tracking\\Providers\\TrackingServiceProvider",
     "dataProviders": [
