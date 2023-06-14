@@ -32,10 +32,6 @@
 	#######################################################################################################
 	#######################################################################################################}
 
-	{% set customerData = services.customer.getContact() %}
-	{% set customerEmail = customerData.email %}
-	{% set customerId = customerData.id %}
-
 	{% if ceresConfig.item.displayName == "itemName" %}
 		{% set displayName = "itemName" %}
 	{% elseif ceresConfig.item.displayName == "variationName" %}
@@ -1158,6 +1154,14 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 
 			{% set webstoreName = webstoreConfig.name|trim|raw %}
 
+			var userData = ceresStore.state.user.userData;
+			var userDataEmail = "";
+			var userDataId = 0;
+			if(userData !== null){
+				userDataEmail = userData.email
+				userDataId = userData.id
+			}
+
 			dataLayer.push ({
 				"event": "globalValues",
 				"currency": "{{ currencyData.name }}",
@@ -1172,8 +1176,8 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 				{% else %}
 				"webstoreName": "{{ webstoreConfig.name|trim|raw }}",
 				{% endif %}
-				"customerEmail": "{{ customerEmail|raw }}",
-				"customerId": "{{ customerId }}",
+				"customerEmail": userDataEmail,
+				"customerId": userDataId,
 				"basketItems": basketItems,
 				"basketData": basketData
 			});
