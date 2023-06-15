@@ -900,8 +900,6 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 					{% set basketItemsQuantity = basketItemsQuantity + item.quantity %}
 			{% endfor %}
 
-			{% set basketCouponCode = basket.couponCode|trim|raw %}
-
 			basket.push(
 				{
 					"amount": {{ basketTotal|number_format(2, ".", "")|default(0) }},
@@ -912,16 +910,7 @@ const NEWSLETTER_OPT_IN         = "newsletter-opt-in";
 					"shippingAmountNet": {{ basketShippingNet|number_format(2, ".", "")|default(0) }},
 					"rebate": {{ basketRebate }},
 					"rebateType": "{{ basket.basketRebateType }}",
-					{% if '"' in basketCouponCode == true and "'" in basketCouponCode == false %}
-					"couponCode": '{{ basket.couponCode|trim|raw }}',
-					{% elseif '"' in basketCouponCode == false and "'" in basketCouponCode == true %}
-					"couponCode": "{{ basket.couponCode|trim|raw }}",
-					{% elseif '"' in basketCouponCode == true and "'" in basketCouponCode == true %}
-					"couponCode": "{{ basket.couponCode|trim }}",
-					{% else %}
-					"couponCode": "{{ basket.couponCode|trim|raw }}",
-					{% endif %}
-					"couponCode": "{{ basket.couponCode }}",
+					"couponCode": ceresStore.state.basket.data.couponCode,
 					"couponDiscount": {{ couponDiscount|number_format(2, ".", "")|default(0) }},
 					"itemsQuantity": {{ basketItemsQuantity|default(0) }},
 					"vatValue": {{ vatValue|number_format(2, ".", "")|default(0) }},
